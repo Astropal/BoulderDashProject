@@ -39,6 +39,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/xxbas/Downloads/showboard.jar"/>
+	<classpathentry kind="lib" path="showboard.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
