@@ -1,4 +1,4 @@
-package model;
+package model.DAO;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,7 +9,7 @@ import java.sql.SQLException;
  *
  * @author Jean-Aymeric Diet
  */
-final class DBConnection {
+public final class DBConnection {
 	/** The instance. */
 	private static DBConnection	INSTANCE	= null;
 

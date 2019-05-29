@@ -1,4 +1,4 @@
-package contract;
+package contract.model;
 
 import java.util.Observable;
 
@@ -32,4 +32,19 @@ public interface IModel {
 	 * @return the observable
 	 */
 	Observable getObservable();
+
+	
+	/**
+     * Gets the ground.
+     *
+     * @return the ground
+     */
+	IWalkable getWalkable();
+	
+	/**
+     * Gets the my vehicle.
+     *
+     * @return the myVehicle
+     */
+    IMobile getPlayer();
 }

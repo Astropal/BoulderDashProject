@@ -1,4 +1,4 @@
-package model;
+package model.DAO;
 
 import java.io.IOException;
 import java.io.InputStream;

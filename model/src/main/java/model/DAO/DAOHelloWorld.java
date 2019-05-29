@@ -1,4 +1,4 @@
-package model;
+package model.DAO;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -12,7 +12,7 @@ import entity.HelloWorld;
  *
  * @author Jean-Aymeric Diet
  */
-class DAOHelloWorld extends DAOEntity<HelloWorld> {
+public class DAOHelloWorld extends DAOEntity<HelloWorld> {
 
 	/**
 	 * Instantiates a new DAO hello world.
