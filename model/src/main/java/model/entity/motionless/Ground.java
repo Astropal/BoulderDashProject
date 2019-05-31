@@ -11,7 +11,7 @@ public class Ground extends MotionlessElement {
     /**
      * Instantiates a new macadam.
      */
-    Ground() {
+    public Ground() {
         super(SPRITE, Permeability.PENETRABLE);
     }
 }

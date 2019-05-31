@@ -2,29 +2,29 @@ package model.entity.mobile;
 
 import java.io.IOException;
 
-import contract.model.IWalkable;
+import contract.model.IMap;
 import contract.model.Permeability;
 import contract.model.Sprite;
 
 public class Player extends Mobile {
 
     /** The Constant SPRITE. */
-    private static final Sprite sprite          = new Sprite('H', "Idle.png");
+    private static final Sprite sprite          = new Sprite('H', "Idle.jpg");
     
     /** The Constant spriteTurnUp. */
-    private static final Sprite spriteTurnUp 	= new Sprite('H', "Up.png");
+    private static final Sprite spriteTurnUp 	= new Sprite('H', "Up.jpg");
 
     /** The Constant spriteTurnLeft. */
-    private static final Sprite spriteTurnLeft  = new Sprite('H', "Left.png");
+    private static final Sprite spriteTurnLeft  = new Sprite('H', "Left.jpg");
 
     /** The Constant spriteTurnRight. */
-    private static final Sprite spriteTurnRight = new Sprite('H', "Right.png");
+    private static final Sprite spriteTurnRight = new Sprite('H', "Right.jpg");
     
     /** The Constant spriteTurnDown. */
-    private static final Sprite spriteTurnDown 	= new Sprite('H', "Down.png");
+    private static final Sprite spriteTurnDown 	= new Sprite('H', "Down.jpg");
 
     /** The Constant spriteExplode. */
-    private static final Sprite spriteExplode   = new Sprite('H', "Idle.png");
+    private static final Sprite spriteExplode   = new Sprite('H', "Idle.jpg");
 
     /**
      * Instantiates a new my vehicle.
@@ -38,13 +38,21 @@ public class Player extends Mobile {
      * @throws IOException
      *             Signals that an I/O exception has occurred.
      */
-    public Player(final int x, final int y, final IWalkable walkable) throws IOException {
-        super(x, y, sprite, walkable, Permeability.BLOCKING);
-        spriteTurnUp.loadImage();
-        spriteTurnLeft.loadImage();
-        spriteTurnRight.loadImage();
-        spriteTurnDown.loadImage();
-        spriteExplode.loadImage();
+    public Player(final int x, final int y, final IMap map) {
+        super(sprite, map, Permeability.BLOCKING);
+        
+        try {
+        	spriteTurnUp.loadImage();
+			spriteTurnLeft.loadImage();
+			spriteTurnRight.loadImage();
+			spriteTurnDown.loadImage();
+			spriteExplode.loadImage();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
     }
     
     

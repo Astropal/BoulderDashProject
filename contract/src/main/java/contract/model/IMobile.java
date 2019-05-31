@@ -65,7 +65,8 @@ public interface IMobile extends IPawn, IElement {
     Boolean isPushable();
     
     Boolean isDestructible();
-
+    
+    Boolean isRemoveable();
     /*
      * (non-Javadoc)
      * @see fr.exia.showboard.IPawn#getPosition()
@@ -74,5 +75,20 @@ public interface IMobile extends IPawn, IElement {
     Point getPosition();
     
     public void blocked();
+    void push(int x, int y);
+    
+    public void setHasMoved();
+
+	void destruction();
+	
+	void Objective(int objectiveState);
+	
+	int getScore();
+	
+	boolean isFinish();
+
+	
+
+
 
 }

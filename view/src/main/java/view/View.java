@@ -12,7 +12,7 @@ import javax.swing.SwingUtilities;
 import contract.controller.IOrderPerformer;
 import contract.controller.UserOrder;
 import contract.model.IMobile;
-import contract.model.IWalkable;
+import contract.model.IMap;
 import contract.view.IView;
 import fr.exia.showboard.BoardFrame;
 
@@ -23,7 +23,7 @@ import fr.exia.showboard.BoardFrame;
  */
 public final class View implements Runnable, KeyListener, IView {
 	/** The Constant roadView. */
-    private static final int walkView   = 14;
+    private static final int walkView   = 20;
 
     /** The Constant squareSize. */
     private static final int squareSize = 50;
@@ -32,7 +32,7 @@ public final class View implements Runnable, KeyListener, IView {
     private Rectangle        closeView;
 
     /** The road. */
-    private IWalkable            walkable;
+    private IMap            map;
 
     /** My vehicle. */
     private IMobile          player;
@@ -42,6 +42,8 @@ public final class View implements Runnable, KeyListener, IView {
 
     /** The order performer. */
     private IOrderPerformer  orderPerformer;
+    
+    public BoardFrame board;
 
     /**
      * Instantiates a new insane vehicles View.
@@ -53,12 +55,12 @@ public final class View implements Runnable, KeyListener, IView {
      * @throws IOException
      *             Signals that an I/O exception has occurred.
      */
-    public View(final IWalkable walkable, final IMobile player) throws IOException {
+    public View(final IMap map, final IMobile player) throws IOException {
         this.setView(walkView);
-        this.setWalkable(walkable);
+        this.setMap(map);
         this.setPlayer(player);
         this.getPlayer().getSprite().loadImage();
-        this.setCloseView(new Rectangle(0, this.getPlayer().getY(), this.getWalkable().getWidth(), walkView));
+        this.setCloseView(new Rectangle(0, 20, 30, walkView));
         SwingUtilities.invokeLater(this);
     }
 
@@ -78,7 +80,7 @@ public final class View implements Runnable, KeyListener, IView {
     @Override
     public final void run() {
         final BoardFrame boardFrame = new BoardFrame("Close view");
-        boardFrame.setDimension(new Dimension(this.getWalkable().getWidth(), this.getWalkable().getHeight()));
+        boardFrame.setDimension(new Dimension(this.getMap().getWidth(), this.getMap().getHeight()));
         boardFrame.setDisplayFrame(this.closeView);
         boardFrame.setSize(this.closeView.width * squareSize, this.closeView.height * squareSize);
         boardFrame.setHeightLooped(false);
@@ -86,16 +88,15 @@ public final class View implements Runnable, KeyListener, IView {
         boardFrame.setFocusable(true);
         boardFrame.setFocusTraversalKeysEnabled(false);
 
-        for (int x = 0; x < this.getWalkable().getWidth(); x++) {
-            for (int y = 0; y < this.getWalkable().getHeight(); y++) {
-                boardFrame.addSquare(this.walkable.getOnTheWalkXY(x, y), x, y);
+        for (int x = 0; x < this.getMap().getWidth(); x++) {
+            for (int y = 0; y < this.getMap().getHeight(); y++) {
+                boardFrame.addSquare(this.map.getOnTheMapXY(x, y), x, y);
             }
         }
         boardFrame.addPawn(this.getPlayer());
 
-        this.getWalkable().getObservable().addObserver(boardFrame.getObserver());
+        this.getMap().getObservable().addObserver(boardFrame.getObserver());
         this.followPlayer();
-
         boardFrame.setVisible(true);
     }
 
@@ -106,16 +107,16 @@ public final class View implements Runnable, KeyListener, IView {
      *            the y start
      */
     public final void show(final int yStart) {
-        int y = yStart % this.getWalkable().getHeight();
+        int y = yStart % this.getMap().getHeight();
         for (int view = 0; view < this.getView(); view++) {
-            for (int x = 0; x < this.getWalkable().getWidth(); x++) {
+            for (int x = 0; x < this.getMap().getWidth(); x++) {
                 if ((x == this.getPlayer().getX()) && (y == yStart)) {
                     System.out.print(this.getPlayer().getSprite().getConsoleImage());
                 } else {
-                    System.out.print(this.getWalkable().getOnTheWalkXY(x, y).getSprite().getConsoleImage());
+                    System.out.print(this.getMap().getOnTheMapXY(x, y).getSprite().getConsoleImage());
                 }
             }
-            y = (y + 1) % this.getWalkable().getHeight();
+            y = (y + 1) % this.getMap().getHeight();
             System.out.print("\n");
         }
     }
@@ -186,7 +187,8 @@ public final class View implements Runnable, KeyListener, IView {
      */
     @Override
     public final void followPlayer() {
-        this.getCloseView().y = this.getPlayer().getY() - 7;
+        this.getCloseView().y = this.getPlayer().getY() - 6;
+        this.getCloseView().x = this.getPlayer().getX() - 15;
     }
 
     /**
@@ -194,8 +196,8 @@ public final class View implements Runnable, KeyListener, IView {
      *
      * @return the road
      */
-    private IWalkable getWalkable() {
-        return this.walkable;
+    private IMap getMap() {
+        return this.map;
     }
 
     /**
@@ -206,11 +208,11 @@ public final class View implements Runnable, KeyListener, IView {
      * @throws IOException
      *             Signals that an I/O exception has occurred.
      */
-    private void setWalkable(final IWalkable walkable) throws IOException {
-        this.walkable = walkable;
-        for (int x = 0; x < this.getWalkable().getWidth(); x++) {
-            for (int y = 0; y < this.getWalkable().getHeight(); y++) {
-                this.getWalkable().getOnTheWalkXY(x, y).getSprite().loadImage();
+    private void setMap(final IMap map) throws IOException {
+        this.map = map;
+        for (int x = 0; x < this.getMap().getWidth(); x++) {
+            for (int y = 0; y < this.getMap().getHeight(); y++) {
+                this.getMap().getOnTheMapXY(x, y).getSprite().loadImage();
             }
         }
     }
@@ -290,4 +292,5 @@ public final class View implements Runnable, KeyListener, IView {
     public final void setOrderPerformer(final IOrderPerformer orderPerformer) {
         this.orderPerformer = orderPerformer;
     }
+    
 }

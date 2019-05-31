@@ -1,29 +1,35 @@
 package model.entity.mobile;
 
-import java.awt.Point;
 
 import contract.model.IMobile;
-import contract.model.IWalkable;
+
+import contract.model.IElement;
+import contract.model.IMap;
 import model.entity.Element;
 import contract.model.Permeability;
 import contract.model.Sprite;
 import fr.exia.showboard.IBoard;
+import model.entity.motionless.MotionlessElementsFactory;
 
 abstract class Mobile extends Element implements IMobile {
-
-    /**
-     * The x.
-     */
-    private Point   position;
-
+	
     /** The alive. */
     private Boolean alive = true;
 
     /** The road. */
-    private IWalkable   walkable;
+    private IMap   map;
 
     /** The board. */
     private IBoard  board;
+    
+    private int Dir;
+    
+    int objective = 4;
+    
+    int objectiveState = 0;
+    
+    boolean finish = false;
+    
 
     /**
      * Instantiates a new mobile.
@@ -35,10 +41,9 @@ abstract class Mobile extends Element implements IMobile {
      * @param permeability
      *            the permeability
      */
-    Mobile(final Sprite sprite, final IWalkable walkable, final Permeability permeability) {
+    Mobile(final Sprite sprite, final IMap map, final Permeability permeability) {
         super(sprite, permeability);
-        this.setWalkable(walkable);
-        this.position = new Point();
+        this.setMap(map);
     }
 
     /**
@@ -55,10 +60,11 @@ abstract class Mobile extends Element implements IMobile {
      * @param permeability
      *            the permeability
      */
-    Mobile(final int x, final int y, final Sprite sprite, final IWalkable walkable, final Permeability permeability) {
-        this(sprite, walkable, permeability);
+    Mobile(final int x, final int y, final Sprite sprite, final IMap map, final Permeability permeability) {
+        this(sprite, map, permeability);
         this.setX(x);
         this.setY(y);
+        this.setMap(map);
     }
 
     /*
@@ -67,9 +73,18 @@ abstract class Mobile extends Element implements IMobile {
      */
     @Override
     public void moveUp() {
+    	fillEmptySpace(this.getX(), this.getY());
         this.setY(this.getY() - 1);
+        Dir = 1;
+        this.setMap(getMap());
         this.setHasMoved();
     }
+    
+    @Override
+    public void destruction() {
+    	fillEmptySpace(this.getX(), this.getY());
+    	this.setHasMoved();
+	}
 
     /*
      * (non-Javadoc)
@@ -77,7 +92,10 @@ abstract class Mobile extends Element implements IMobile {
      */
     @Override
     public void moveLeft() {
+    	fillEmptySpace(this.getX(), this.getY());
         this.setX(this.getX() - 1);
+        Dir = 4;
+        this.setMap(getMap());
         this.setHasMoved();
     }
 
@@ -87,7 +105,10 @@ abstract class Mobile extends Element implements IMobile {
      */
     @Override
     public void moveDown() {
+    	fillEmptySpace(this.getX(), this.getY());
         this.setY(this.getY() + 1);
+        Dir = 2;
+        this.setMap(getMap());
         this.setHasMoved();
     }
 
@@ -97,7 +118,10 @@ abstract class Mobile extends Element implements IMobile {
      */
     @Override
     public void moveRight() {
+    	fillEmptySpace(this.getX(), this.getY());
         this.setX(this.getX() + 1);
+        Dir = 3;
+        this.setMap(getMap());
         this.setHasMoved();
     }
 
@@ -107,74 +131,22 @@ abstract class Mobile extends Element implements IMobile {
      */
     @Override
     public void doNothing() {
+    	Dir = 0;
         this.setHasMoved();
     }
 
     /**
      * Sets the has moved.
      */
-    private void setHasMoved() {
-        this.getWalkable().setMobileHasChanged();
+    public void setHasMoved() {
+        this.getMap().setMapHasChanged();
     }
 
     /*
      * (non-Javadoc)
      * @see fr.exia.insanevehicles.model.element.mobile.IMobile#getX()
      */
-    @Override
-    public final int getX() {
-        return this.getPosition().x;
-    }
 
-    /**
-     * Sets the x.
-     *
-     * @param x
-     *            the new x
-     */
-    public final void setX(final int x) {
-        this.getPosition().x = x;
-    }
-
-    /*
-     * (non-Javadoc)
-     * @see fr.exia.insanevehicles.model.element.mobile.IMobile#getY()
-     */
-    @Override
-    public final int getY() {
-        return this.getPosition().y;
-    }
-
-    /**
-     * Sets the y.
-     *
-     * @param y
-     *            the new y, as the road is an infinite loop, there's a modulo
-     *            based on the road height.
-     */
-    public final void setY(final int y) {
-        this.getPosition().y = (y + this.getWalkable().getHeight()) % this.getWalkable().getHeight();
-        
-    }
-
-    /**
-     * Gets the road.
-     *
-     * @return the road
-     */
-    public IWalkable getWalkable() {
-        return this.walkable;
-    }
-
-    /**
-     * Sets the road.
-     *
-     * @param road
-     *            the new road
-     */
-    private void setWalkable(final IWalkable walkable) {
-        this.walkable = walkable;
-    }
 
     /*
      * (non-Javadoc)
@@ -196,14 +168,45 @@ abstract class Mobile extends Element implements IMobile {
     public void blocked() {
     	if(this.getX() == 0) {
     		this.setX(this.getX() + 1);}
-    	else if (this.getX() == 19) {
+    	else if (this.getX() == 40) {
     		this.setX(this.getX() - 1);}
     	
     	if(this.getY() == 0) {
     		this.setY(this.getY() + 1);}
-    	else if (this.getY() == 15) {
+    	else if (this.getY() == 10) {
     		this.setY(this.getY() - 1);}
         this.setHasMoved();
+    }
+    
+    public void fillEmptySpace(int x, int y) {
+		IElement bg = MotionlessElementsFactory.createGround();
+		bg.setX(x);
+		bg.setY(y);
+		this.getMap().setOnTheMapXY(bg, x, y);
+	}
+    
+    public void push(int x, int y) {
+    	IElement bg = MobileElementsFactory.createRock();
+    	bg.setX(x);
+		bg.setY(y);
+		
+		if(Dir == 3 && this.getMap().getOnTheMapXY(this.getX() + 1, this.getY()).getPermeability() == Permeability.PENETRABLE) {
+		this.getMap().setOnTheMapXY(bg, this.getX() + 1, this.getY());
+		}else if(Dir == 3){this.setX(this.getX() - 1); this.getMap().setOnTheMapXY(bg, this.getX() + 1, this.getY());}
+		
+		if(Dir == 4 && this.getMap().getOnTheMapXY(this.getX() - 1, this.getY()).getPermeability() == Permeability.PENETRABLE){
+		this.getMap().setOnTheMapXY(bg, this.getX() - 1, this.getY());
+		}else if(Dir == 4){this.setX(this.getX() + 1); this.getMap().setOnTheMapXY(bg, this.getX() - 1, this.getY());}
+		
+		if(Dir == 1 && this.getMap().getOnTheMapXY(this.getX(), this.getY() - 1).getPermeability() == Permeability.PENETRABLE) {
+		this.getMap().setOnTheMapXY(bg, this.getX(), this.getY() - 1);
+		}else if(Dir == 1){this.setY(this.getY() + 1); this.getMap().setOnTheMapXY(bg, this.getX(), this.getY() - 1);}
+		
+		if (Dir == 2 && this.getMap().getOnTheMapXY(this.getX(), this.getY() + 1).getPermeability() == Permeability.PENETRABLE){
+		this.getMap().setOnTheMapXY(bg, this.getX(), this.getY() + 1);
+		}else if(Dir == 2){this.setY(this.getY() - 1); this.getMap().setOnTheMapXY(bg, this.getX(), this.getY() + 1);}
+		
+		this.setHasMoved();
     }
 
     /*
@@ -212,42 +215,45 @@ abstract class Mobile extends Element implements IMobile {
      */
     @Override
     public Boolean isBlocked() {
-        return this.getWalkable().getOnTheWalkXY(this.getX(), this.getY()).getPermeability() == Permeability.BLOCKING;
+        return this.getMap().getOnTheMapXY(this.getX(), this.getY()).getPermeability() == Permeability.BLOCKING;
     }
     
     @Override
     public Boolean isPushable() {
-        return this.getWalkable().getOnTheWalkXY(this.getX(), this.getY()).getPermeability() == Permeability.PUSHABLE;
+        return this.getMap().getOnTheMapXY(this.getX(), this.getY()).getPermeability() == Permeability.PUSHABLE;
     }
     
     @Override
     public Boolean isDestructible(){
-		return this.getWalkable().getOnTheWalkXY(this.getX(), this.getY()).getPermeability() == Permeability.DESTRUCTIBLE;
+		return this.getMap().getOnTheMapXY(this.getX(), this.getY()).getPermeability() == Permeability.DESTRUCTIBLE;
+    	
+    }
+    
+    @Override
+    public Boolean isRemoveable(){
+		return this.getMap().getOnTheMapXY(this.getX(), this.getY()).getPermeability() == Permeability.REMOVEABLE;
     	
     }
 
-    /*
-     * (non-Javadoc)
-     * @see fr.exia.showboard.IPawn#getPosition()
+    /**
+     * Gets the road.
+     *
+     * @return the road
      */
-    /*
-     * (non-Javadoc)
-     * @see fr.exia.insanevehicles.model.element.mobile.IMobile#getPosition()
-     */
-    @Override
-    public Point getPosition() {
-        return this.position;
+    public IMap getMap() {
+        return this.map;
     }
 
     /**
-     * Sets the position.
+     * Sets the road.
      *
-     * @param position
-     *            the position to set
+     * @param road
+     *            the new road
      */
-    public void setPosition(final Point position) {
-        this.position = position;
+    private void setMap(final IMap map) {
+        this.map = map;
     }
+   
 
     /**
      * Gets the board.
@@ -257,5 +263,21 @@ abstract class Mobile extends Element implements IMobile {
     protected IBoard getBoard() {
         return this.board;
     }
+    
+    public void Objective(int objectiveState){
+        this.objectiveState = objectiveState;
+        this.getMap().setOnTheMapXY(MotionlessElementsFactory.createGround(), this.getX(), this.getY());
+        	if(objectiveState == objective) {
+        		finish = true;
+        	}
+        }
+        
+        public int getScore() {
+    		return objectiveState;
+    	}
+        
+        public boolean isFinish() {
+        	return finish;
+        }
 
 }

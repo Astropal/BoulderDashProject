@@ -9,5 +9,7 @@ public enum Permeability {
     
     PUSHABLE,
     
-    DESTRUCTIBLE;
+    DESTRUCTIBLE,
+    
+    REMOVEABLE;
 }

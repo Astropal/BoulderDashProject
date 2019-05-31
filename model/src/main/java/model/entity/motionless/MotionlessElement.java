@@ -1,11 +1,13 @@
 package model.entity.motionless;
 
 import model.entity.Element;
+import contract.model.IMotionless;
 import contract.model.Permeability;
 import contract.model.Sprite;
 
-abstract class MotionlessElement extends Element {
-
+public abstract class MotionlessElement extends Element implements IMotionless{
+	
+	
     /**
      * Instantiates a new motionless element.
      *
@@ -17,5 +19,11 @@ abstract class MotionlessElement extends Element {
     MotionlessElement(final Sprite sprite, final Permeability permeability) {
         super(sprite, permeability);
     }
+    
+    
+    @Override
+	public void destruction() {
+    	
+	}
 
 }

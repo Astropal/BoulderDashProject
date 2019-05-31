@@ -7,10 +7,11 @@ import java.io.InputStreamReader;
 import java.util.Observable;
 
 import contract.model.IElement;
-import contract.model.IWalkable;
+import contract.model.IMap;
+import model.entity.mobile.MobileElementsFactory;
 import model.entity.motionless.MotionlessElementsFactory;
 
-public class Walkable extends Observable implements IWalkable {
+public class Map extends Observable implements IMap {
 
     /** The width. */
     private int          width;
@@ -19,7 +20,7 @@ public class Walkable extends Observable implements IWalkable {
     private int          height;
 
     /** The on the road. */
-    private IElement[][] onTheRoad;
+    private IElement[][] onTheMap;
 
     /**
      * Instantiates a new road with the content of the file fileName.
@@ -29,7 +30,7 @@ public class Walkable extends Observable implements IWalkable {
      * @throws IOException
      *             Signals that an I/O exception has occurred.
      */
-    Walkable(final String fileName) throws IOException {
+    Map(final String fileName) throws IOException {
         super();
         this.loadFile(fileName);
     }
@@ -50,15 +51,18 @@ public class Walkable extends Observable implements IWalkable {
         this.setWidth(Integer.parseInt(line));
         line = buffer.readLine();
         this.setHeight(Integer.parseInt(line));
-        this.onTheRoad = new IElement[this.getWidth()][this.getHeight()];
+        this.onTheMap = new IElement[this.getWidth()][this.getHeight()];
         line = buffer.readLine();
         while (line != null) {
             for (int x = 0; x < line.toCharArray().length; x++) {
-                this.setOnTheWalkXY(MotionlessElementsFactory.getFromFileSymbol(line.toCharArray()[x]), x, y);
-            }
+				if ((line.toCharArray()[x]) == 'D' || ((line.toCharArray()[x]) == 'N')) {
+                this.setOnTheMapXY(MobileElementsFactory.getFromFileSymbol(line.toCharArray()[x]), x, y);
+            	}else {this.setOnTheMapXY(MotionlessElementsFactory.getFromFileSymbol(line.toCharArray()[x]), x, y);}
+             }
+
             line = buffer.readLine();
             y++;
-        }
+        } 
         buffer.close();
     }
 
@@ -105,10 +109,10 @@ public class Walkable extends Observable implements IWalkable {
      * @see fr.exia.insanevehicles.model.IRoad#getOnTheRoadXY(int, int)
      */
     @Override
-    public final IElement getOnTheWalkXY(final int x, final int y) {
-        return this.onTheRoad[x][y];
+    public IElement getOnTheMapXY(final int x, final int y) {
+        return this.onTheMap[x][y];
     }
-
+   
     /**
      * Sets the on the road XY.
      *
@@ -119,8 +123,8 @@ public class Walkable extends Observable implements IWalkable {
      * @param y
      *            the y
      */
-    public void setOnTheWalkXY(final IElement element, final int x, final int y) {
-        this.onTheRoad[x][y] = element;
+    public void setOnTheMapXY(final IElement element, final int x, final int y) {
+        this.onTheMap[x][y] = element;
     }
 
     /*
@@ -128,7 +132,7 @@ public class Walkable extends Observable implements IWalkable {
      * @see fr.exia.insanevehicles.model.IRoad#setMobileHasChanged()
      */
     @Override
-    public final void setMobileHasChanged() {
+    public final void setMapHasChanged() {
         this.setChanged();
         this.notifyObservers();
     }

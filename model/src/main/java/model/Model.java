@@ -5,7 +5,8 @@ import java.util.Observable;
 
 import contract.model.IMobile;
 import contract.model.IModel;
-import contract.model.IWalkable;
+import contract.model.IMotionless;
+import contract.model.IMap;
 import model.entity.mobile.Player;
 
 /**
@@ -16,10 +17,13 @@ import model.entity.mobile.Player;
 public final class Model extends Observable implements IModel {
 	
 	/** The road. */
-    private IWalkable   walkable;
+    private IMap   map;
 
     /** The my vehicle. */
     private IMobile player;
+    
+    
+    private IMotionless element;
     
     
 
@@ -28,8 +32,9 @@ public final class Model extends Observable implements IModel {
 	 */
 	public Model(final String fileName, final int myPlayerStartX, final int myPlayerStartY) throws IOException {
 		
-		this.setWalkable(new Walkable(fileName));
-        this.setPlayer(new Player(myPlayerStartX, myPlayerStartY, this.getWalkable()));
+		this.setMap(new Map(fileName));
+        this.setPlayer(new Player(myPlayerStartX, myPlayerStartY, this.getMap()));
+       // this.setElement(new DustWall());
 	}
 
 	/**
@@ -47,8 +52,8 @@ public final class Model extends Observable implements IModel {
 	}
 	*/
 	@Override
-    public final IWalkable getWalkable() {
-        return this.walkable;
+    public final IMap getMap() {
+        return this.map;
     }
 	
 	/**
@@ -57,8 +62,8 @@ public final class Model extends Observable implements IModel {
      * @param road
      *            the road to set
      */
-    private void setWalkable(final IWalkable walkable) {
-        this.walkable = walkable;
+    private void setMap(final IMap map) {
+        this.map = map;
     }
     
     @Override
@@ -74,6 +79,15 @@ public final class Model extends Observable implements IModel {
      */
     private void setPlayer(final IMobile player) {
         this.player = player;
+    }
+    
+    @Override
+    public final IMotionless getElement() {
+        return this.element;
+    }
+    
+    public void setElement(final IMotionless element) {
+        this.element = element;
     }
 
 	/**

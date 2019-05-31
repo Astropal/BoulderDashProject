@@ -1,5 +1,6 @@
 package contract.view;
 
+
 /**
  * The Interface IView.
  *
@@ -19,5 +20,7 @@ public interface IView {
      * Follow myVehicle.
      */
     void followPlayer();
-
+    
+    void show(final int yStart);
+    
 }

@@ -39,7 +39,7 @@ public interface IModel {
      *
      * @return the ground
      */
-	IWalkable getWalkable();
+	IMap getMap();
 	
 	/**
      * Gets the my vehicle.
@@ -47,4 +47,9 @@ public interface IModel {
      * @return the myVehicle
      */
     IMobile getPlayer();
+
+	IMotionless getElement();
+
+	void setElement(final IMotionless element);
+
 }

@@ -1,7 +1,7 @@
 package model.entity.motionless;
 
-public abstract class MotionlessElementsFactory {
 
+public abstract class MotionlessElementsFactory {
 	
 	private static final Wall          wall          = new Wall();
 
@@ -11,8 +11,6 @@ public abstract class MotionlessElementsFactory {
     /** The Constant MACADAM. */
     private static final Ground             ground             = new Ground();
 
-    /** The Constant OBSTACLE. */
-    private static final Obstacle            OBSTACLE            = new Obstacle();
 
     /**
      * The motionless elements is an array of all possible MotionlessElement.
@@ -20,7 +18,6 @@ public abstract class MotionlessElementsFactory {
     private static MotionlessElement[]       motionlessElements  = {
     	wall,
     	ground,
-        OBSTACLE,
         dustwall, };
     
     public static MotionlessElement createWall() {
@@ -34,15 +31,6 @@ public abstract class MotionlessElementsFactory {
      */
     public static MotionlessElement createGround() {
         return ground;
-    }
-
-    /**
-     * Creates a new obstacle object.
-     *
-     * @return the motionless element
-     */
-    public static MotionlessElement createObstacle() {
-        return OBSTACLE;
     }
 
     /**

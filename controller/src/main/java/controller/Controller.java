@@ -57,15 +57,19 @@ public class Controller implements IController, IOrderPerformer {
             switch (this.getStackOrder()) {
                 case RIGHT:
                     this.getModel().getPlayer().moveRight();
+                    this.getView().show(0);
                     break;
                 case LEFT:
                     this.getModel().getPlayer().moveLeft();
+                    this.getView().show(0);
                     break;
                 case DOWN:
                 	this.getModel().getPlayer().moveDown();
+                	this.getView().show(0);
                     break;    
                 case UP:
                 	this.getModel().getPlayer().moveUp();
+                	this.getView().show(0);
                     break;
                 case NOP:
                 default:
@@ -73,19 +77,39 @@ public class Controller implements IController, IOrderPerformer {
                     break;
             }
             
+        if (this.getModel().getPlayer().isDestructible()) {
+        	this.getModel().getPlayer().destruction();
+        }
+            
         if (this.getModel().getPlayer().isBlocked()) {
             this.getModel().getPlayer().blocked();
         }
+        
+        if (this.getModel().getPlayer().isPushable()) {
+            this.getModel().getPlayer().push(this.getModel().getPlayer().getX(), this.getModel().getPlayer().getY());;
+        }
+        
+        if (this.getModel().getPlayer().isRemoveable()) {
+        	this.getModel().getPlayer().Objective(this.getModel().getPlayer().getScore() + 1);
+        	System.out.println(this.getModel().getPlayer().getScore());
+        	if(this.getModel().getPlayer().isFinish()) {
+        		this.getView().displayMessage("WIN !");
+        	}
+        }
+        
 		this.clearStackOrder();
 		this.getView().followPlayer();
 		}
 		this.getView().displayMessage("GAME OVER !");
 	}
 	
+	
+	
 	@Override
     public final void orderPerform(final UserOrder userOrder) throws IOException {
         this.setStackOrder(userOrder);
     }
+	
 	
 	private IView getView() {
         return this.view;
@@ -109,6 +133,7 @@ public class Controller implements IController, IOrderPerformer {
     private IModel getModel() {
         return this.model;
     }
+    
     
 	/**
 	 * Sets the model.
@@ -159,7 +184,6 @@ public class Controller implements IController, IOrderPerformer {
     public IOrderPerformer getOrderPeformer() {
         return this;
     }
-
 
 
 }

@@ -5,7 +5,7 @@ import java.util.Observable;
 import contract.model.IElement;
 
 
-public interface IWalkable {
+public interface IMap {
 	
 	/**
      * Gets the width.
@@ -30,12 +30,14 @@ public interface IWalkable {
      *            the y
      * @return the on the road XY
      */
-    IElement getOnTheWalkXY(int x, int y);
+    IElement getOnTheMapXY(int x, int y);
+    
+    public void setOnTheMapXY(final IElement element, final int x, final int y);
 
     /**
      * Sets the mobile has changed.
      */
-    void setMobileHasChanged();
+    void setMapHasChanged();
 
     /**
      * Gets the observable.
@@ -43,5 +45,7 @@ public interface IWalkable {
      * @return the observable
      */
     Observable getObservable();
+    
+
 
 }
