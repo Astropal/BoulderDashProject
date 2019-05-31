@@ -53,23 +53,24 @@ public class Controller implements IController, IOrderPerformer {
 	 */
 	public final void play() throws InterruptedException {
 		while (this.getModel().getPlayer().isAlive()) {
-            Thread.sleep(speed);
+			getView().UpdateMap();
+			Thread.sleep(speed);
             switch (this.getStackOrder()) {
                 case RIGHT:
                     this.getModel().getPlayer().moveRight();
-                    this.getView().show(0);
+                    //this.getView().show(0);
                     break;
                 case LEFT:
                     this.getModel().getPlayer().moveLeft();
-                    this.getView().show(0);
+                    //this.getView().show(0);
                     break;
                 case DOWN:
                 	this.getModel().getPlayer().moveDown();
-                	this.getView().show(0);
+                	//this.getView().show(0);
                     break;    
                 case UP:
                 	this.getModel().getPlayer().moveUp();
-                	this.getView().show(0);
+                	//this.getView().show(0);
                     break;
                 case NOP:
                 default:
@@ -91,7 +92,7 @@ public class Controller implements IController, IOrderPerformer {
         
         if (this.getModel().getPlayer().isRemoveable()) {
         	this.getModel().getPlayer().Objective(this.getModel().getPlayer().getScore() + 1);
-        	System.out.println(this.getModel().getPlayer().getScore());
+        	//System.out.println(this.getModel().getPlayer().getScore());
         	if(this.getModel().getPlayer().isFinish()) {
         		this.getView().displayMessage("WIN !");
         	}
@@ -184,6 +185,5 @@ public class Controller implements IController, IOrderPerformer {
     public IOrderPerformer getOrderPeformer() {
         return this;
     }
-
 
 }

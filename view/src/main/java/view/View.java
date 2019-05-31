@@ -43,8 +43,7 @@ public final class View implements Runnable, KeyListener, IView {
     /** The order performer. */
     private IOrderPerformer  orderPerformer;
     
-    public BoardFrame board;
-
+    final BoardFrame boardFrame = new BoardFrame("Close view");
     /**
      * Instantiates a new insane vehicles View.
      *
@@ -77,9 +76,10 @@ public final class View implements Runnable, KeyListener, IView {
      * (non-Javadoc)
      * @see java.lang.Runnable#run()
      */
+    
+    
     @Override
     public final void run() {
-        final BoardFrame boardFrame = new BoardFrame("Close view");
         boardFrame.setDimension(new Dimension(this.getMap().getWidth(), this.getMap().getHeight()));
         boardFrame.setDisplayFrame(this.closeView);
         boardFrame.setSize(this.closeView.width * squareSize, this.closeView.height * squareSize);
@@ -88,14 +88,14 @@ public final class View implements Runnable, KeyListener, IView {
         boardFrame.setFocusable(true);
         boardFrame.setFocusTraversalKeysEnabled(false);
 
-        for (int x = 0; x < this.getMap().getWidth(); x++) {
+       /* for (int x = 0; x < this.getMap().getWidth(); x++) {
             for (int y = 0; y < this.getMap().getHeight(); y++) {
                 boardFrame.addSquare(this.map.getOnTheMapXY(x, y), x, y);
             }
         }
         boardFrame.addPawn(this.getPlayer());
 
-        this.getMap().getObservable().addObserver(boardFrame.getObserver());
+        this.getMap().getObservable().addObserver(boardFrame.getObserver());*/
         this.followPlayer();
         boardFrame.setVisible(true);
     }
@@ -291,6 +291,17 @@ public final class View implements Runnable, KeyListener, IView {
      */
     public final void setOrderPerformer(final IOrderPerformer orderPerformer) {
         this.orderPerformer = orderPerformer;
+    }
+    
+    public void UpdateMap() {
+    	for (int x = 0; x < this.getMap().getWidth(); x++) {
+            for (int y = 0; y < this.getMap().getHeight(); y++) {
+                boardFrame.addSquare(this.map.getOnTheMapXY(x, y), x, y);
+            }
+        }
+        boardFrame.addPawn(this.getPlayer());
+
+        this.getMap().getObservable().addObserver(boardFrame.getObserver());
     }
     
 }

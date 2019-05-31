@@ -23,4 +23,7 @@ public interface IView {
     
     void show(final int yStart);
     
+    void UpdateMap();
+    
+    
 }
