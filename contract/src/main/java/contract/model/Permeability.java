@@ -11,5 +11,7 @@ public enum Permeability {
     
     DESTRUCTIBLE,
     
-    REMOVEABLE;
+    REMOVEABLE,
+    
+    KILLABLE;
 }

@@ -67,6 +67,8 @@ public interface IMobile extends IPawn, IElement {
     Boolean isDestructible();
     
     Boolean isRemoveable();
+    
+    Boolean isDead();
     /*
      * (non-Javadoc)
      * @see fr.exia.showboard.IPawn#getPosition()
@@ -86,6 +88,8 @@ public interface IMobile extends IPawn, IElement {
 	int getScore();
 	
 	boolean isFinish();
+
+	
 
 	
 

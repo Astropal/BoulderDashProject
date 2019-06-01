@@ -23,6 +23,7 @@ public class Controller implements IController, IOrderPerformer {
 	/** The model. */
 	private IModel	model;
 	
+	
 	/** The stack order. */
     private UserOrder            stackOrder;
 
@@ -54,30 +55,26 @@ public class Controller implements IController, IOrderPerformer {
 	public final void play() throws InterruptedException {
 		while (this.getModel().getPlayer().isAlive()) {
 			getView().UpdateMap();
+			//this.getView().show(0);
 			Thread.sleep(speed);
             switch (this.getStackOrder()) {
                 case RIGHT:
                     this.getModel().getPlayer().moveRight();
-                    //this.getView().show(0);
                     break;
                 case LEFT:
                     this.getModel().getPlayer().moveLeft();
-                    //this.getView().show(0);
                     break;
                 case DOWN:
                 	this.getModel().getPlayer().moveDown();
-                	//this.getView().show(0);
                     break;    
                 case UP:
                 	this.getModel().getPlayer().moveUp();
-                	//this.getView().show(0);
                     break;
                 case NOP:
                 default:
                     this.getModel().getPlayer().doNothing();
                     break;
             }
-            
         if (this.getModel().getPlayer().isDestructible()) {
         	this.getModel().getPlayer().destruction();
         }
@@ -98,7 +95,11 @@ public class Controller implements IController, IOrderPerformer {
         	}
         }
         
+        this.getModel().getMap().gravity();
+        this.getModel().getMap().moveEnemy();
+        
 		this.clearStackOrder();
+		//this.getModel().getMap().lookForAndMoveEnemy();
 		this.getView().followPlayer();
 		}
 		this.getView().displayMessage("GAME OVER !");
@@ -126,6 +127,7 @@ public class Controller implements IController, IOrderPerformer {
         this.view = view;
     }
 
+    
     /**
      * Gets the model.
      *

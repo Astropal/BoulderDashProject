@@ -12,6 +12,8 @@ public abstract class MobileElementsFactory {
     private static final Rock                rock                = new Rock(MAP);
     
     private static final Diamond                diamond                = new Diamond(MAP);
+    
+    private static final Enemy                enemy                = new Enemy(MAP);
 
 
     /**
@@ -20,7 +22,8 @@ public abstract class MobileElementsFactory {
     private static Mobile[]       mobileElements  = {
     //	player,
     	rock,
-    	diamond,};
+    	diamond,
+    	enemy,};
     
     /*public static Mobile createPlayer() {
         return player;
@@ -37,6 +40,10 @@ public abstract class MobileElementsFactory {
     
     public static Mobile createDiamond() {
         return diamond;
+    }
+    
+    public static Mobile createEnemy() {
+        return enemy;
     }
 
 

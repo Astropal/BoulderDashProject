@@ -45,6 +45,12 @@ public interface IMap {
      * @return the observable
      */
     Observable getObservable();
+
+	void lookForAndMoveEnemy();
+	
+	void gravity() throws InterruptedException;
+	
+	void moveEnemy() throws InterruptedException;
     
 
 

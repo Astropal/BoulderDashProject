@@ -43,7 +43,9 @@ public final class View implements Runnable, KeyListener, IView {
     /** The order performer. */
     private IOrderPerformer  orderPerformer;
     
-    final BoardFrame boardFrame = new BoardFrame("Close view");
+    final BoardFrame boardFrame = new BoardFrame("BoulderDash");
+    
+    //final BoardFrame boardFrame = new BoardFrame("Close view");
     /**
      * Instantiates a new insane vehicles View.
      *
@@ -77,25 +79,25 @@ public final class View implements Runnable, KeyListener, IView {
      * @see java.lang.Runnable#run()
      */
     
-    
     @Override
     public final void run() {
-        boardFrame.setDimension(new Dimension(this.getMap().getWidth(), this.getMap().getHeight()));
+    	boardFrame.setDimension(new Dimension(this.getMap().getWidth(), this.getMap().getHeight()));
         boardFrame.setDisplayFrame(this.closeView);
         boardFrame.setSize(this.closeView.width * squareSize, this.closeView.height * squareSize);
         boardFrame.setHeightLooped(false);
         boardFrame.addKeyListener(this);
         boardFrame.setFocusable(true);
         boardFrame.setFocusTraversalKeysEnabled(false);
+        
 
-       /* for (int x = 0; x < this.getMap().getWidth(); x++) {
+        for (int x = 0; x < this.getMap().getWidth(); x++) {
             for (int y = 0; y < this.getMap().getHeight(); y++) {
                 boardFrame.addSquare(this.map.getOnTheMapXY(x, y), x, y);
             }
         }
         boardFrame.addPawn(this.getPlayer());
 
-        this.getMap().getObservable().addObserver(boardFrame.getObserver());*/
+        this.getMap().getObservable().addObserver(boardFrame.getObserver());
         this.followPlayer();
         boardFrame.setVisible(true);
     }

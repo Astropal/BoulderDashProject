@@ -11,14 +11,12 @@ import contract.model.Sprite;
 import fr.exia.showboard.IBoard;
 import model.entity.motionless.MotionlessElementsFactory;
 
-abstract class Mobile extends Element implements IMobile {
+public abstract class Mobile extends Element implements IMobile {
 	
     /** The alive. */
     private Boolean alive = true;
-
     /** The road. */
     private IMap   map;
-
     /** The board. */
     private IBoard  board;
     
@@ -76,7 +74,7 @@ abstract class Mobile extends Element implements IMobile {
     	fillEmptySpace(this.getX(), this.getY());
         this.setY(this.getY() - 1);
         Dir = 1;
-        this.setMap(getMap());
+        if (this.isDead()) { this.die(); }
         this.setHasMoved();
     }
     
@@ -95,7 +93,7 @@ abstract class Mobile extends Element implements IMobile {
     	fillEmptySpace(this.getX(), this.getY());
         this.setX(this.getX() - 1);
         Dir = 4;
-        this.setMap(getMap());
+        if (this.isDead()) { this.die(); }
         this.setHasMoved();
     }
 
@@ -108,7 +106,7 @@ abstract class Mobile extends Element implements IMobile {
     	fillEmptySpace(this.getX(), this.getY());
         this.setY(this.getY() + 1);
         Dir = 2;
-        this.setMap(getMap());
+        if (this.isDead()) { this.die(); }
         this.setHasMoved();
     }
 
@@ -121,7 +119,7 @@ abstract class Mobile extends Element implements IMobile {
     	fillEmptySpace(this.getX(), this.getY());
         this.setX(this.getX() + 1);
         Dir = 3;
-        this.setMap(getMap());
+        if (this.isDead()) { this.die(); }
         this.setHasMoved();
     }
 
@@ -131,7 +129,11 @@ abstract class Mobile extends Element implements IMobile {
      */
     @Override
     public void doNothing() {
-    	Dir = 0;
+    	
+    	if (Dir == 5 || Dir == 1) {
+    		Dir = 5;
+    	}else {Dir = 0;}
+    	if (this.isDead()) { this.die(); }
         this.setHasMoved();
     }
 
@@ -166,15 +168,10 @@ abstract class Mobile extends Element implements IMobile {
     }
     
     public void blocked() {
-    	if(this.getX() == 0) {
-    		this.setX(this.getX() + 1);}
-    	else if (this.getX() == 40) {
-    		this.setX(this.getX() - 1);}
-    	
-    	if(this.getY() == 0) {
-    		this.setY(this.getY() + 1);}
-    	else if (this.getY() == 10) {
-    		this.setY(this.getY() - 1);}
+    	if(this.getX() == 0) { this.setX(this.getX() + 1);}
+    	else if (this.getX() == 40) { this.setX(this.getX() - 1);}
+    	if(this.getY() == 0) { this.setY(this.getY() + 1);}
+    	else if (this.getY() == 20) { this.setY(this.getY() - 1);}
         this.setHasMoved();
     }
     
@@ -191,20 +188,19 @@ abstract class Mobile extends Element implements IMobile {
 		bg.setY(y);
 		
 		if(Dir == 3 && this.getMap().getOnTheMapXY(this.getX() + 1, this.getY()).getPermeability() == Permeability.PENETRABLE) {
-		this.getMap().setOnTheMapXY(bg, this.getX() + 1, this.getY());
-		}else if(Dir == 3){this.setX(this.getX() - 1); this.getMap().setOnTheMapXY(bg, this.getX() + 1, this.getY());}
+		this.getMap().setOnTheMapXY(bg, this.getX() + 1, this.getY()); Dir = 5;
+		}else if(Dir == 3){this.setX(this.getX() - 1); this.getMap().setOnTheMapXY(bg, this.getX() + 1, this.getY()); Dir = 5;}
 		
 		if(Dir == 4 && this.getMap().getOnTheMapXY(this.getX() - 1, this.getY()).getPermeability() == Permeability.PENETRABLE){
-		this.getMap().setOnTheMapXY(bg, this.getX() - 1, this.getY());
-		}else if(Dir == 4){this.setX(this.getX() + 1); this.getMap().setOnTheMapXY(bg, this.getX() - 1, this.getY());}
+		this.getMap().setOnTheMapXY(bg, this.getX() - 1, this.getY()); Dir = 5;
+		}else if(Dir == 4){this.setX(this.getX() + 1); this.getMap().setOnTheMapXY(bg, this.getX() - 1, this.getY()); Dir = 5;}
 		
-		if(Dir == 1 && this.getMap().getOnTheMapXY(this.getX(), this.getY() - 1).getPermeability() == Permeability.PENETRABLE) {
-		this.getMap().setOnTheMapXY(bg, this.getX(), this.getY() - 1);
-		}else if(Dir == 1){this.setY(this.getY() + 1); this.getMap().setOnTheMapXY(bg, this.getX(), this.getY() - 1);}
+		if(Dir == 2){this.setY(this.getY() - 1); this.getMap().setOnTheMapXY(bg, this.getX(), this.getY() + 1); Dir = 5;}
+		else if (Dir == 1) {this.setY(this.getY() + 1); this.getMap().setOnTheMapXY(bg, this.getX(), this.getY() - 1); Dir = 5;}
 		
-		if (Dir == 2 && this.getMap().getOnTheMapXY(this.getX(), this.getY() + 1).getPermeability() == Permeability.PENETRABLE){
-		this.getMap().setOnTheMapXY(bg, this.getX(), this.getY() + 1);
-		}else if(Dir == 2){this.setY(this.getY() - 1); this.getMap().setOnTheMapXY(bg, this.getX(), this.getY() + 1);}
+		if(Dir == 0) {
+			this.getMap().setOnTheMapXY(bg, this.getX(), this.getY() - 1);
+			this.getMap().setOnTheMapXY(MotionlessElementsFactory.createWall(), this.getX(), this.getY());}
 		
 		this.setHasMoved();
     }
@@ -216,6 +212,11 @@ abstract class Mobile extends Element implements IMobile {
     @Override
     public Boolean isBlocked() {
         return this.getMap().getOnTheMapXY(this.getX(), this.getY()).getPermeability() == Permeability.BLOCKING;
+    }
+    
+    @Override
+    public Boolean isDead() {
+        return this.getMap().getOnTheMapXY(this.getX(), this.getY()).getPermeability() == Permeability.KILLABLE;
     }
     
     @Override
@@ -272,12 +273,15 @@ abstract class Mobile extends Element implements IMobile {
         	}
         }
         
-        public int getScore() {
+    public int getScore() {
     		return objectiveState;
-    	}
+    }
         
-        public boolean isFinish() {
+    public boolean isFinish() {
         	return finish;
-        }
+    }
+   
+    
+    
 
 }

@@ -8,7 +8,7 @@ import contract.model.Sprite;
 public class Diamond extends Mobile {
 
     /** The Constant SPRITE. */
-    private static final Sprite SPRITE = new Sprite('D', "diamond.png");
+    private static final Sprite SPRITE = new Sprite('D', "Diamond.jpg");
 
     /**
      * Instantiates a new obstacle.

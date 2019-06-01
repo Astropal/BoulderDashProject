@@ -5,6 +5,7 @@ import java.io.IOException;
 import contract.model.IMap;
 import contract.model.Permeability;
 import contract.model.Sprite;
+import model.entity.motionless.MotionlessElementsFactory;;
 
 public class Player extends Mobile {
 
