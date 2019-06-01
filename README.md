@@ -1,3 +1,5 @@
-# JPU-BlankProject
-
-Base de démarrage pour le projet Jave/POO/UML des 1ières années Exia-Cesi
+# BoulderDash Project
+Bastien DUPONT | Clément ALBOS
+22/05/2019
+---
+Jave/POO/UML Project
