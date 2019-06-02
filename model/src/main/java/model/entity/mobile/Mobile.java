@@ -22,7 +22,7 @@ public abstract class Mobile extends Element implements IMobile {
     
     private int Dir;
     
-    int objective = 6;
+    int objective = 12;
     
     int objectiveState = 0;
     
