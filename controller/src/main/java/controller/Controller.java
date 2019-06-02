@@ -53,7 +53,7 @@ public class Controller implements IController, IOrderPerformer {
 	 * @see contract.IController#orderPerform(contract.ControllerOrder)
 	 */
 	public final void play() throws InterruptedException {
-		while (this.getModel().getPlayer().isAlive()) {
+		while (this.getModel().getPlayer().isAlive() && this.getModel().getPlayer().isInGame()) {
 			//getView().UpdateMap();
 			//this.getView().show(0);
 			Thread.sleep(speed);
@@ -80,27 +80,24 @@ public class Controller implements IController, IOrderPerformer {
                     getView().UpdateMap();
                     break;
             }
-            
-        if (this.getModel().getPlayer().isDestructible()) {
-        	this.getModel().getPlayer().destruction();
-        }
-            
-        if (this.getModel().getPlayer().isBlocked()) {
-            this.getModel().getPlayer().blocked();
-        }
+         
+            if (this.getModel().getPlayer().isBlocked()) {
+            	this.getModel().getPlayer().blocked();
+            }
         
-        if (this.getModel().getPlayer().isPushable()) {
-            this.getModel().getPlayer().push(this.getModel().getPlayer().getX(), this.getModel().getPlayer().getY());
-        }
+            if (this.getModel().getPlayer().isPushable()) {
+            	this.getModel().getPlayer().push(this.getModel().getPlayer().getX(), this.getModel().getPlayer().getY());
+            }
         
-        if (this.getModel().getPlayer().isFallInjure()) {
-        	this.getModel().getPlayer().fallInjure();
-        }
+            if (this.getModel().getPlayer().isFallInjure()) {
+            	this.getModel().getPlayer().fallInjure();
+            }
         
-        if (this.getModel().getPlayer().isRemoveable()) {
-        	this.getModel().getPlayer().Objective(this.getModel().getPlayer().getScore() + 1);
+            if (this.getModel().getPlayer().isRemoveable()) {
+            	this.getModel().getPlayer().Objective(this.getModel().getPlayer().getScore() + 1);
+            	
         	if(this.getModel().getPlayer().isFinish()) {
-        		this.getView().displayMessage("WIN !");
+        		this.getView().displayMessage("A DOOR HAS OPENED !");
         	}
         	//System.out.println(this.getModel().getPlayer().getScore());
         }
@@ -111,7 +108,8 @@ public class Controller implements IController, IOrderPerformer {
 		this.getView().followPlayer();
 		}
 		getView().UpdateMap();
-		this.getView().displayMessage("GAME OVER !");
+		if(this.getModel().getPlayer().isInGame()) {this.getView().displayMessage("GAME OVER !");}
+		if(this.getModel().getPlayer().isAlive()) {this.getView().displayMessage("WIN !");}
 	}
 	
 	

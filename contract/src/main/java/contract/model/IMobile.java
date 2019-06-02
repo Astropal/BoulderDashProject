@@ -69,6 +69,16 @@ public interface IMobile extends IPawn, IElement {
     Boolean isRemoveable();
     
     Boolean isDead();
+    
+    Boolean isOut();
+    
+    Boolean isFallInjure();
+    
+    boolean isFinish();
+    
+    boolean isInGame();
+    
+    
     /*
      * (non-Javadoc)
      * @see fr.exia.showboard.IPawn#getPosition()
@@ -81,18 +91,14 @@ public interface IMobile extends IPawn, IElement {
     void push(int x, int y);
     
     public void setHasMoved();
-
-	void destruction();
 	
 	void Objective(int objectiveState);
 	
 	int getScore();
 	
-	boolean isFinish();
-
-	Boolean isFallInjure();
-	
 	void fallInjure();
+
+	
 
 	
 

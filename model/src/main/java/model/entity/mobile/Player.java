@@ -24,7 +24,7 @@ public class Player extends Mobile {
     private static final Sprite spriteTurnDown 	= new Sprite('H', "Down.jpg");
 
     /** The Constant spriteExplode. */
-    private static final Sprite spriteExplode   = new Sprite('H', "Idle.jpg");
+    private static final Sprite spriteDead   = new Sprite('H', "Dead.jpg");
 
     /**
      * Instantiates a new my vehicle.
@@ -46,7 +46,7 @@ public class Player extends Mobile {
 			spriteTurnLeft.loadImage();
 			spriteTurnRight.loadImage();
 			spriteTurnDown.loadImage();
-			spriteExplode.loadImage();
+			spriteDead.loadImage();
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -95,7 +95,7 @@ public class Player extends Mobile {
     @Override
     protected final void die() {
         super.die();
-        this.setSprite(spriteExplode);
+        this.setSprite(spriteDead);
     }
 
     /*

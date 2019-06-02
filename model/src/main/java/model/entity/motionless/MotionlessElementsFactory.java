@@ -3,13 +3,17 @@ package model.entity.motionless;
 
 public abstract class MotionlessElementsFactory {
 	
+	 /** The Constant WALL. */
 	private static final Wall          wall          = new Wall();
 
-    /** The Constant TREE. */
+    /** The Constant DUSTWALL. */
     private static final DustWall                dustwall                = new DustWall();
 
-    /** The Constant MACADAM. */
+    /** The Constant GROUND. */
     private static final Ground             ground             = new Ground();
+    
+    /** The Constant DOOR. */
+    private static final Door             door             = new Door();
 
 
     /**
@@ -18,7 +22,8 @@ public abstract class MotionlessElementsFactory {
     private static MotionlessElement[]       motionlessElements  = {
     	wall,
     	ground,
-        dustwall, };
+        dustwall,
+        door, };
     
     public static MotionlessElement createWall() {
         return wall;
@@ -40,6 +45,15 @@ public abstract class MotionlessElementsFactory {
      */
     public static MotionlessElement createDustWall() {
         return dustwall;
+    }
+    
+    /**
+     * Creates a new MotionlessElements object.
+     *
+     * @return the motionless element
+     */
+    public static MotionlessElement createDoor() {
+        return door;
     }
 
     /**

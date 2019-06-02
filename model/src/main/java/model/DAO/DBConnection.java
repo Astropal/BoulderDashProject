@@ -1,64 +1,38 @@
 package model.DAO;
 
+
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
 
-/**
- * The Class DBConnection.
- *
- * @author Jean-Aymeric Diet
- */
-public final class DBConnection {
-	/** The instance. */
-	private static DBConnection	INSTANCE	= null;
+public class DBConnection {
 
-	/** The connection. */
-	private Connection					connection;
+	private static String URL = "jdbc:mysql://localhost/boulderdashproject?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&autoReconnect=true&useSSL=false";
+	private static String USER = "root";
+	private static String PASSWD = "";
 
-	/**
-	 * Instantiates a new DB connection.
-	 */
-	private DBConnection() {
-		this.open();
-	}
+	private Connection connection = null;
 
-	/**
-	 * Gets the single instance of DBConnection.
-	 *
-	 * @return single instance of DBConnection
-	 */
-	public static synchronized DBConnection getInstance() {
-		if (DBConnection.INSTANCE == null) {
-			DBConnection.INSTANCE = new DBConnection();
+	private DBConnection INSTANCE;
+
+	public DBConnection getInstance() {
+		if (INSTANCE != null) {
+			INSTANCE = new DBConnection();
 		}
-		return DBConnection.INSTANCE;
+		return INSTANCE;
 	}
 
-	/**
-	 * Open.
-	 *
-	 * @return the boolean
-	 */
-	private Boolean open() {
-		final DBProperties dbProperties = new DBProperties();
+	public void connect() {
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			this.connection = DriverManager.getConnection(dbProperties.getUrl(), dbProperties.getLogin(), dbProperties.getPassword());
-		} catch (final ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (final SQLException e) {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			connection=DriverManager.getConnection(URL, USER, PASSWD);
+			System.out.println("Connexion etablished !");
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return true;
 	}
-
-	/**
-	 * Gets the connection.
-	 *
-	 * @return the connection
-	 */
+	
 	public Connection getConnection() {
-		return this.connection;
+		return connection;
 	}
 }

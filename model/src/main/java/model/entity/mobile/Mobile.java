@@ -22,11 +22,13 @@ public abstract class Mobile extends Element implements IMobile {
     
     private int Dir;
     
-    int objective = 4;
+    int objective = 6;
     
     int objectiveState = 0;
     
     boolean finish = false;
+    
+    boolean ingame = true;
     
 
     /**
@@ -75,14 +77,9 @@ public abstract class Mobile extends Element implements IMobile {
         this.setY(this.getY() - 1);
         Dir = 1;
         if (this.isDead()) { this.die(); }
+        if(this.isOut()) {ingame = false; System.out.println(ingame);}
         this.setHasMoved();
     }
-    
-    @Override
-    public void destruction() {
-    	fillEmptySpace(this.getX(), this.getY());
-    	this.setHasMoved();
-	}
 
     /*
      * (non-Javadoc)
@@ -94,6 +91,7 @@ public abstract class Mobile extends Element implements IMobile {
         this.setX(this.getX() - 1);
         Dir = 4;
         if (this.isDead()) { this.die(); }
+        if(this.isOut()) {ingame = false; System.out.println(ingame);}
         this.setHasMoved();
     }
 
@@ -107,6 +105,7 @@ public abstract class Mobile extends Element implements IMobile {
         this.setY(this.getY() + 1);
         Dir = 2;
         if (this.isDead()) { this.die(); }
+        if(this.isOut()) {ingame = false; System.out.println(ingame);}
         this.setHasMoved();
     }
 
@@ -120,6 +119,7 @@ public abstract class Mobile extends Element implements IMobile {
         this.setX(this.getX() + 1);
         Dir = 3;
         if (this.isDead()) { this.die(); }
+        if(this.isOut()) {ingame = false; System.out.println(ingame);}
         this.setHasMoved();
     }
 
@@ -226,6 +226,11 @@ public abstract class Mobile extends Element implements IMobile {
     }
     
     @Override
+    public Boolean isOut() {
+        return this.getMap().getOnTheMapXY(this.getX(), this.getY()).getPermeability() == Permeability.FINISHABLE;
+    }
+    
+    @Override
     public Boolean isFallInjure() {
     	return (this.getMap().getOnTheMapXY(this.getX(), this.getY() - 2).getPermeability() == Permeability.PUSHABLE || this.getMap().getOnTheMapXY(this.getX(), this.getY() - 2).getPermeability() == Permeability.REMOVEABLE) && this.getMap().getOnTheMapXY(this.getX(), this.getY() - 1).getPermeability() == Permeability.PENETRABLE;
     }
@@ -286,6 +291,10 @@ public abstract class Mobile extends Element implements IMobile {
         this.getMap().setOnTheMapXY(MotionlessElementsFactory.createGround(), this.getX(), this.getY());
         	if(objectiveState == objective) {
         		finish = true;
+        		this.getMap().setOnTheMapXY(MotionlessElementsFactory.createDoor(), 40, 21);
+        	}
+        	if(objectiveState > objective) {
+        		finish = false;
         	}
         }
         
@@ -296,6 +305,10 @@ public abstract class Mobile extends Element implements IMobile {
     public boolean isFinish() {
         	return finish;
     }
+    
+    public boolean isInGame() {
+    	return ingame;
+}
    
     
     

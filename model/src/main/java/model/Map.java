@@ -9,6 +9,7 @@ import java.util.Observable;
 import contract.model.IElement;
 import contract.model.IMap;
 import contract.model.Permeability;
+import model.DAO.DAOMap;
 import model.entity.mobile.MobileElementsFactory;
 import model.entity.motionless.MotionlessElementsFactory;
 
@@ -22,6 +23,8 @@ public class Map extends Observable implements IMap {
 
     /** The on the road. */
     private IElement[][] onTheMap;
+    
+    private DAOMap MyMap = new DAOMap() ;
 
     /**
      * Instantiates a new road with the content of the file fileName.
@@ -31,10 +34,11 @@ public class Map extends Observable implements IMap {
      * @throws IOException
      *             Signals that an I/O exception has occurred.
      */
-    Map(final String fileName) throws IOException {
-        super();
-        this.loadFile(fileName);
-    }
+    Map(final String fileName) throws IOException  {
+		super();
+		this.MyMap.loadlevel(1);
+		this.loadFile(fileName);
+	}
 
     /**
      * Loads file.
@@ -183,7 +187,15 @@ public class Map extends Observable implements IMap {
 				int Dir = (int)(Math.random() * 4);
 				
 				if(this.getOnTheMapXY(x, y).getPermeability() == Permeability.KILLABLE && (this.getOnTheMapXY(x, y - 1).getPermeability() == Permeability.PUSHABLE || this.getOnTheMapXY(x, y - 1).getPermeability() == Permeability.REMOVEABLE)){
-					this.setOnTheMapXY(MotionlessElementsFactory.createGround(), x, y);
+					this.setOnTheMapXY(MobileElementsFactory.createDiamond(), x, y);
+					this.setOnTheMapXY(MobileElementsFactory.createDiamond(), x + 1, y);
+					this.setOnTheMapXY(MobileElementsFactory.createDiamond(), x - 1, y);
+					this.setOnTheMapXY(MobileElementsFactory.createDiamond(), x, y + 1);
+					this.setOnTheMapXY(MobileElementsFactory.createDiamond(), x, y - 1);
+					this.setOnTheMapXY(MobileElementsFactory.createDiamond(), x + 1, y + 1);
+					this.setOnTheMapXY(MobileElementsFactory.createDiamond(), x - 1, y + 1);
+					this.setOnTheMapXY(MobileElementsFactory.createDiamond(), x + 1, y - 1);
+					this.setOnTheMapXY(MobileElementsFactory.createDiamond(), x - 1, y - 1);
 				}
 				
 				if(Dir == 0 && this.getOnTheMapXY(x, y).getPermeability() == Permeability.KILLABLE && this.getOnTheMapXY(x, y + 1).getPermeability() == Permeability.PENETRABLE){
