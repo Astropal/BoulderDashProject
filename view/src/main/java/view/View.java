@@ -61,7 +61,7 @@ public final class View implements Runnable, KeyListener, IView {
         this.setMap(map);
         this.setPlayer(player);
         this.getPlayer().getSprite().loadImage();
-        this.setCloseView(new Rectangle(0, 20, 30, walkView));
+        this.setCloseView(new Rectangle(0, 0, 30, walkView));
         SwingUtilities.invokeLater(this);
     }
 
@@ -189,8 +189,22 @@ public final class View implements Runnable, KeyListener, IView {
      */
     @Override
     public final void followPlayer() {
-        this.getCloseView().y = this.getPlayer().getY() - 6;
-        this.getCloseView().x = this.getPlayer().getX() - 15;
+    	int x;
+		int y;
+		x = (int) this.getPlayer().getX();
+		y = (int) this.getPlayer().getY();
+		if (x > 8 && x < this.getCloseView().x + 9) {
+			this.getCloseView().x--;
+		} else if (x > this.getCloseView().x + 14 && x < 32) {
+			this.getCloseView().x++;
+		}
+		//if(x < this.getCloseView().x + 4) {this.getCloseView().x = 4;}
+		if (y < this.getCloseView().y + 4) {
+			this.getCloseView().y--;
+		} else if (y > this.getCloseView().y + 10 && y < 17) {
+			this.getCloseView().y++;
+		}
+        
     }
 
     /**
