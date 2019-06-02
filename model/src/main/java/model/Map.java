@@ -9,10 +9,7 @@ import java.util.Observable;
 import contract.model.IElement;
 import contract.model.IMap;
 import contract.model.Permeability;
-import model.entity.mobile.Enemy;
-import model.entity.mobile.Mobile;
 import model.entity.mobile.MobileElementsFactory;
-import model.entity.motionless.Ground;
 import model.entity.motionless.MotionlessElementsFactory;
 
 public class Map extends Observable implements IMap {
@@ -150,51 +147,6 @@ public class Map extends Observable implements IMap {
         return this;
     }
     
-    public IElement[][] getMap() {
-		return onTheMap;
-	}
-    
-    public boolean isEmpty(int x, int y) {
-		if (getOnTheMapXY(x, y).getClass().equals(Ground.class)) {
-			return true;
-		}
-		return false;
-	}
-    
-    public void moveEnemy(Mobile element) {
-		int x = 0;
-		int y = 0;
-		x = element.getX();
-		y = element.getY();
-
-		if (isEmpty(x + 1, y)) {
-			element.setX(x + 1);
-			element.setY(y);
-		} else if (isEmpty(x, y - 1) && !isEmpty(x + 1, y)) {
-			element.setX(x);
-			element.setY(y - 1);
-		} else if (isEmpty(x - 1, y) && !isEmpty(x, y - 1) && !isEmpty(x + 1, y)) {
-			element.setX(x - 1);
-			element.setY(y);
-		} else if (isEmpty(x, y - 1) && !isEmpty(x - 1, y) && !isEmpty(x, y - 1) && !isEmpty(x + 1, y)) {
-			element.setX(x);
-			element.setY(y - 1);
-		} else {
-			element.doNothing();
-		}
-	}
-    
-    public void lookForAndMoveEnemy() {
-		IElement[][] elem = getMap();
-		for (int j = 0; j < elem.length; j++) {
-			for (int i = 0; i < elem[i].length; i++) {
-				if (getOnTheMapXY(i, j).getClass().equals(Enemy.class)) {
-					moveEnemy((Mobile) getOnTheMapXY(i, j));
-				}
-			}
-		}
-	}
-    
     public void gravity() throws InterruptedException {
     	for (int y = this.getHeight()-1;y > 0; y--) {
 			for (int x = this.getWidth()-1; x > 0; x--) {
@@ -206,8 +158,20 @@ public class Map extends Observable implements IMap {
 					this.setOnTheMapXY(MotionlessElementsFactory.createGround(), x, y);
 					this.setOnTheMapXY(MobileElementsFactory.createDiamond(), x, y+1);
 				}
-				if(this.getOnTheMapXY(x, y).getPermeability() == Permeability.REMOVEABLE && this.getOnTheMapXY(x, y + 1).getPermeability() == Permeability.BLOCKING){
-					this.setOnTheMapXY(MobileElementsFactory.createRock(), x, y - 1);
+				
+				if(this.getOnTheMapXY(x, y).getPermeability() == Permeability.PUSHABLE && this.getOnTheMapXY(x, y + 1).getPermeability() == Permeability.PENETRABLE && this.getOnTheMapXY(x - 1, y).getPermeability() == Permeability.PENETRABLE && (this.getOnTheMapXY(x, y + 1).getPermeability() == Permeability.PUSHABLE || this.getOnTheMapXY(x, y + 1).getPermeability() == Permeability.REMOVEABLE)){
+					this.setOnTheMapXY(MotionlessElementsFactory.createGround(), x, y);
+					this.setOnTheMapXY(MobileElementsFactory.createRock(), x - 1, y);
+				}else if(this.getOnTheMapXY(x, y).getPermeability() == Permeability.PUSHABLE && this.getOnTheMapXY(x + 1, y + 1).getPermeability() == Permeability.PENETRABLE && this.getOnTheMapXY(x + 1, y).getPermeability() == Permeability.PENETRABLE && (this.getOnTheMapXY(x, y + 1).getPermeability() == Permeability.PUSHABLE || this.getOnTheMapXY(x, y + 1).getPermeability() == Permeability.REMOVEABLE)) {
+					this.setOnTheMapXY(MotionlessElementsFactory.createGround(), x, y);
+					this.setOnTheMapXY(MobileElementsFactory.createRock(), x + 1, y);
+				}
+				if(this.getOnTheMapXY(x, y).getPermeability() == Permeability.REMOVEABLE && this.getOnTheMapXY(x - 1, y + 1).getPermeability() == Permeability.PENETRABLE && this.getOnTheMapXY(x - 1, y).getPermeability() == Permeability.PENETRABLE && (this.getOnTheMapXY(x, y + 1).getPermeability() == Permeability.PUSHABLE || this.getOnTheMapXY(x, y + 1).getPermeability() == Permeability.REMOVEABLE)){
+					this.setOnTheMapXY(MotionlessElementsFactory.createGround(), x, y);
+					this.setOnTheMapXY(MobileElementsFactory.createDiamond(), x - 1, y);
+				}else if(this.getOnTheMapXY(x, y).getPermeability() == Permeability.REMOVEABLE && this.getOnTheMapXY(x + 1, y + 1).getPermeability() == Permeability.PENETRABLE && this.getOnTheMapXY(x + 1, y).getPermeability() == Permeability.PENETRABLE && (this.getOnTheMapXY(x, y + 1).getPermeability() == Permeability.PUSHABLE || this.getOnTheMapXY(x, y + 1).getPermeability() == Permeability.REMOVEABLE)) {
+					this.setOnTheMapXY(MotionlessElementsFactory.createGround(), x, y);
+					this.setOnTheMapXY(MobileElementsFactory.createDiamond(), x + 1, y);
 				}
 			}
 		}
@@ -217,6 +181,11 @@ public class Map extends Observable implements IMap {
     	for (int y = this.getHeight()-1;y > 0; y--) {
 			for (int x = this.getWidth()-1; x > 0; x--) {
 				int Dir = (int)(Math.random() * 4);
+				
+				if(this.getOnTheMapXY(x, y).getPermeability() == Permeability.KILLABLE && (this.getOnTheMapXY(x, y - 1).getPermeability() == Permeability.PUSHABLE || this.getOnTheMapXY(x, y - 1).getPermeability() == Permeability.REMOVEABLE)){
+					this.setOnTheMapXY(MotionlessElementsFactory.createGround(), x, y);
+				}
+				
 				if(Dir == 0 && this.getOnTheMapXY(x, y).getPermeability() == Permeability.KILLABLE && this.getOnTheMapXY(x, y + 1).getPermeability() == Permeability.PENETRABLE){
 					this.setOnTheMapXY(MotionlessElementsFactory.createGround(), x, y);
 					this.setOnTheMapXY(MobileElementsFactory.createEnemy(), x, y+1);

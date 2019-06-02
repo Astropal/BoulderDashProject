@@ -30,10 +30,12 @@ public final class Model extends Observable implements IModel {
 	/**
 	 * Instantiates a new model.
 	 */
-	public Model(final String fileName, final int myPlayerStartX, final int myPlayerStartY) throws IOException {
+	public Model(final String fileName) throws IOException {
 		
 		this.setMap(new Map(fileName));
-        this.setPlayer(new Player(myPlayerStartX, myPlayerStartY, this.getMap()));
+        this.setPlayer(new Player(this.getMap()));
+        this.player.setX(5);
+        this.player.setY(5);
        // this.setElement(new DustWall());
 	}
 

@@ -24,7 +24,7 @@ public class ModelTest {
 
     @Before
     public void setUp() throws Exception {
-        this.model = new Model(null, 0, 0);
+        this.model = new Model(null);
     }
 
     @After

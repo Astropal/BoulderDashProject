@@ -168,10 +168,10 @@ public abstract class Mobile extends Element implements IMobile {
     }
     
     public void blocked() {
-    	if(this.getX() == 0) { this.setX(this.getX() + 1);}
-    	else if (this.getX() == 40) { this.setX(this.getX() - 1);}
-    	if(this.getY() == 0) { this.setY(this.getY() + 1);}
-    	else if (this.getY() == 20) { this.setY(this.getY() - 1);}
+    	if(Dir == 4) { this.setX(this.getX() + 1);}
+    	else if (Dir == 3) { this.setX(this.getX() - 1);}
+    	if(Dir == 1) { this.setY(this.getY() + 1);}
+    	else if (Dir == 2) { this.setY(this.getY() - 1);}
         this.setHasMoved();
     }
     
@@ -201,8 +201,19 @@ public abstract class Mobile extends Element implements IMobile {
 		if(Dir == 0) {
 			this.getMap().setOnTheMapXY(bg, this.getX(), this.getY() - 1);
 			this.getMap().setOnTheMapXY(MotionlessElementsFactory.createWall(), this.getX(), this.getY());}
-		
-		this.setHasMoved();
+    }
+    
+    public void fallInjure() {
+    	if(this.getMap().getOnTheMapXY(this.getX(), this.getY() - 2).getPermeability() == Permeability.PUSHABLE) {
+    		this.getMap().setOnTheMapXY(MotionlessElementsFactory.createGround(), this.getX(), this.getY() - 1);
+    		this.getMap().setOnTheMapXY(MobileElementsFactory.createRock(), this.getX(), this.getY());
+    		this.die();
+		}
+    	if(this.getMap().getOnTheMapXY(this.getX(), this.getY() - 2).getPermeability() == Permeability.REMOVEABLE) {
+    		this.getMap().setOnTheMapXY(MotionlessElementsFactory.createGround(), this.getX(), this.getY() - 1);
+    		this.getMap().setOnTheMapXY(MobileElementsFactory.createDiamond(), this.getX(), this.getY());
+    		this.die();	
+    	}
     }
 
     /*
@@ -212,6 +223,11 @@ public abstract class Mobile extends Element implements IMobile {
     @Override
     public Boolean isBlocked() {
         return this.getMap().getOnTheMapXY(this.getX(), this.getY()).getPermeability() == Permeability.BLOCKING;
+    }
+    
+    @Override
+    public Boolean isFallInjure() {
+    	return (this.getMap().getOnTheMapXY(this.getX(), this.getY() - 2).getPermeability() == Permeability.PUSHABLE || this.getMap().getOnTheMapXY(this.getX(), this.getY() - 2).getPermeability() == Permeability.REMOVEABLE) && this.getMap().getOnTheMapXY(this.getX(), this.getY() - 1).getPermeability() == Permeability.PENETRABLE;
     }
     
     @Override

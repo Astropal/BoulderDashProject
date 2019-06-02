@@ -43,7 +43,7 @@ public final class View implements Runnable, KeyListener, IView {
     /** The order performer. */
     private IOrderPerformer  orderPerformer;
     
-    final BoardFrame boardFrame = new BoardFrame("BoulderDash");
+    
     
     //final BoardFrame boardFrame = new BoardFrame("Close view");
     /**
@@ -78,7 +78,7 @@ public final class View implements Runnable, KeyListener, IView {
      * (non-Javadoc)
      * @see java.lang.Runnable#run()
      */
-    
+    final BoardFrame boardFrame = new BoardFrame("BoulderDash");
     @Override
     public final void run() {
     	boardFrame.setDimension(new Dimension(this.getMap().getWidth(), this.getMap().getHeight()));

@@ -54,27 +54,33 @@ public class Controller implements IController, IOrderPerformer {
 	 */
 	public final void play() throws InterruptedException {
 		while (this.getModel().getPlayer().isAlive()) {
-			getView().UpdateMap();
+			//getView().UpdateMap();
 			//this.getView().show(0);
 			Thread.sleep(speed);
             switch (this.getStackOrder()) {
                 case RIGHT:
                     this.getModel().getPlayer().moveRight();
+                    getView().UpdateMap();
                     break;
                 case LEFT:
                     this.getModel().getPlayer().moveLeft();
+                    getView().UpdateMap();
                     break;
                 case DOWN:
                 	this.getModel().getPlayer().moveDown();
+                	getView().UpdateMap();
                     break;    
                 case UP:
                 	this.getModel().getPlayer().moveUp();
+                	getView().UpdateMap();
                     break;
                 case NOP:
                 default:
                     this.getModel().getPlayer().doNothing();
+                    getView().UpdateMap();
                     break;
             }
+            
         if (this.getModel().getPlayer().isDestructible()) {
         	this.getModel().getPlayer().destruction();
         }
@@ -84,24 +90,27 @@ public class Controller implements IController, IOrderPerformer {
         }
         
         if (this.getModel().getPlayer().isPushable()) {
-            this.getModel().getPlayer().push(this.getModel().getPlayer().getX(), this.getModel().getPlayer().getY());;
+            this.getModel().getPlayer().push(this.getModel().getPlayer().getX(), this.getModel().getPlayer().getY());
+        }
+        
+        if (this.getModel().getPlayer().isFallInjure()) {
+        	this.getModel().getPlayer().fallInjure();
         }
         
         if (this.getModel().getPlayer().isRemoveable()) {
         	this.getModel().getPlayer().Objective(this.getModel().getPlayer().getScore() + 1);
-        	//System.out.println(this.getModel().getPlayer().getScore());
         	if(this.getModel().getPlayer().isFinish()) {
         		this.getView().displayMessage("WIN !");
         	}
+        	//System.out.println(this.getModel().getPlayer().getScore());
         }
         
         this.getModel().getMap().gravity();
         this.getModel().getMap().moveEnemy();
-        
 		this.clearStackOrder();
-		//this.getModel().getMap().lookForAndMoveEnemy();
 		this.getView().followPlayer();
 		}
+		getView().UpdateMap();
 		this.getView().displayMessage("GAME OVER !");
 	}
 	

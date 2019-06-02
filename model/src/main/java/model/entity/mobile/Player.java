@@ -5,7 +5,6 @@ import java.io.IOException;
 import contract.model.IMap;
 import contract.model.Permeability;
 import contract.model.Sprite;
-import model.entity.motionless.MotionlessElementsFactory;;
 
 public class Player extends Mobile {
 
@@ -39,7 +38,7 @@ public class Player extends Mobile {
      * @throws IOException
      *             Signals that an I/O exception has occurred.
      */
-    public Player(final int x, final int y, final IMap map) {
+    public Player(final IMap map) {
         super(sprite, map, Permeability.BLOCKING);
         
         try {

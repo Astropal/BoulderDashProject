@@ -77,6 +77,7 @@ public interface IMobile extends IPawn, IElement {
     Point getPosition();
     
     public void blocked();
+    
     void push(int x, int y);
     
     public void setHasMoved();
@@ -88,6 +89,10 @@ public interface IMobile extends IPawn, IElement {
 	int getScore();
 	
 	boolean isFinish();
+
+	Boolean isFallInjure();
+	
+	void fallInjure();
 
 	
 
