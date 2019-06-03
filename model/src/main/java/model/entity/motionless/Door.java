@@ -13,7 +13,7 @@ public class Door extends MotionlessElement {
     /**
      * Instantiates a new Door.
      */
-    Door() {
+   public Door() {
         super(SPRITE, Permeability.FINISHABLE);
         
         try {

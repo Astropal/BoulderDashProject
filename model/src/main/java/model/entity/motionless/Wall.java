@@ -11,7 +11,7 @@ public class Wall extends MotionlessElement {
     /**
      * Instantiates a new Wall.
      */
-    Wall() {
+    public Wall() {
         super(SPRITE, Permeability.BLOCKING);
     }
 }
