@@ -27,8 +27,8 @@ public class DAOMap {
 
 	/**
 	 * Load the level.
-	 * @param id
-	 * @throws IOException
+	 * @param id the id
+	 * @throws IOException the IOException
 	 */
 	public void loadlevel(int id) throws IOException {
 

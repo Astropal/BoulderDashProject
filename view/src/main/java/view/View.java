@@ -245,8 +245,8 @@ public final class View implements Runnable, KeyListener, IView {
     /**
      * Sets Player.
      *
-     * @param Player
-     *            new Player
+     * @param player
+     *            new player
      */
     private void setPlayer(final IMobile player) {
         this.player = player;

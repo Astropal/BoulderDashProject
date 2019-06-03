@@ -11,9 +11,7 @@ public class DustWall extends MotionlessElement {
     
 
     /**
-     * @param iMap 
-     * Instantiates a new DustWall.
-     * @throws  
+     * Instantiates a new DustWall. 
      */
     public DustWall() {
         super(SPRITE, Permeability.DESTRUCTIBLE);

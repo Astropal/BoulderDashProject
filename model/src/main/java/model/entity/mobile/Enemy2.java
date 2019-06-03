@@ -14,15 +14,8 @@ public class Enemy2 extends Mobile {
 
     /**
      * Instantiates a new enemy2.
-     *
-     * @param x
-     *            the x
-     * @param y
-     *            the y
      * @param map
      *            the map
-     * @throws IOException
-     *             Signals that an I/O exception has occurred.
      */
     public Enemy2(final IMap map) {
         super(sprite, map, Permeability.KILLABLE2);

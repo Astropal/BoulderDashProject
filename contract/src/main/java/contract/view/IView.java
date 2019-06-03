@@ -23,7 +23,7 @@ public interface IView {
     
     /**
      * Print the game in the console (for dev).
-     * @param yStart
+     * @param yStart the yStart
      */
     void show(final int yStart);
         

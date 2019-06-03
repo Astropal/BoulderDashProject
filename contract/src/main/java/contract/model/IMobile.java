@@ -133,8 +133,8 @@ public interface IMobile extends IPawn, IElement {
     /**
      * Push rocks.
      *
-     * @param x
-     * @param y
+     * @param x the x
+     * @param y the y
      */
     void push(int x, int y);
     
@@ -146,12 +146,13 @@ public interface IMobile extends IPawn, IElement {
     /**
      * The score.
      *
-	 * @param objectiveState
+	 * @param objectiveState the objectiveState
 	 */
 	void Objective(int objectiveState);
 	
 	/**
      * Get the score.
+     * @return getScore
      */
 	int getScore();
 	

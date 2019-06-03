@@ -40,8 +40,8 @@ public abstract class Mobile extends Element implements IMobile {
      *
      * @param sprite
      *            the sprite
-     * @param road
-     *            the road
+     * @param map
+     *            the map
      * @param permeability
      *            the permeability
      */
@@ -59,8 +59,8 @@ public abstract class Mobile extends Element implements IMobile {
      *            the y
      * @param sprite
      *            the sprite
-     * @param road
-     *            the road
+     * @param map
+     *            the map
      * @param permeability
      *            the permeability
      */
@@ -178,8 +178,8 @@ public abstract class Mobile extends Element implements IMobile {
     
     /**
      * Dig DustWall.
-     * @param x
-     * @param y
+     * @param x the x
+     * @param y the y
      */
     public void fillEmptySpace(int x, int y) {
 		IElement bg = MotionlessElementsFactory.createGround();
@@ -191,8 +191,8 @@ public abstract class Mobile extends Element implements IMobile {
     
     /**
      * Push rocks.
-     * @param x
-     * @param y
+     * @param x the x
+     * @param y the y
      */
     public void push(int x, int y) {
     	IElement bg = MobileElementsFactory.createRock();
@@ -304,7 +304,7 @@ public abstract class Mobile extends Element implements IMobile {
     
     /**
      * The objective
-     *@param objectiveState
+     *@param objectiveState the objectiveState
      */
     public void Objective(int objectiveState){
         this.objectiveState = objectiveState;

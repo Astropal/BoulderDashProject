@@ -22,6 +22,8 @@ public abstract class Main {
      *
      * @param args
      *            the arguments
+     * @throws IOException the IOException
+     * @throws InterruptedException the InterruptedException
      */
     public static void main(final String[] args) throws IOException, InterruptedException{
         /*final Model model = new Model();

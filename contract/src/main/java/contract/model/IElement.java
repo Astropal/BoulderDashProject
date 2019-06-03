@@ -42,15 +42,13 @@ public interface IElement extends ISquare {
 	
 	/**
      * Set the y.
-     *
-     * @return the y
+     * @param y the y
      */
 	public void setY(final int y);
 	
 	/**
      * Set the x.
-     *
-     * @return the x
+     * @param x the x
      */
 	public void setX(final int x);
 	

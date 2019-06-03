@@ -42,9 +42,7 @@ public class Controller implements IController, IOrderPerformer {
 	
 	/**
      * Order perform.
-     *
-     * @param controllerOrder
-     *            the controller order
+     * @throws InterruptedException the InterruptedException
      */
 	/*
 	 * (non-Javadoc)

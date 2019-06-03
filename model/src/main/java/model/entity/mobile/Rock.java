@@ -12,6 +12,9 @@ public class Rock extends Mobile {
 
     /**
      * Instantiates a new rock.
+     * 
+     * @param map the map
+     * 
      */
     public Rock(final IMap map) {
         super(SPRITE, map, Permeability.PUSHABLE);

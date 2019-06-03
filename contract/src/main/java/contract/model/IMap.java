@@ -34,9 +34,9 @@ public interface IMap {
     
     /**
      * Set on the map.
-     * @param element
-     * @param x
-     * @param y
+     * @param element the element
+     * @param x the x
+     * @param y the y
      */
     public void setOnTheMapXY(final IElement element, final int x, final int y);
 
@@ -55,14 +55,14 @@ public interface IMap {
     
 	/**
 	 * Apply the gravity.
-	 * @throws InterruptedException
+	 * @throws InterruptedException the InterruptedException
 	 */
 	void gravity() throws InterruptedException;
 	
 	
 	/**
 	 * Enemies movements.
-	 * @throws InterruptedException
+	 * @throws InterruptedException the InterruptedException
 	 */
 	void moveEnemy() throws InterruptedException;
     

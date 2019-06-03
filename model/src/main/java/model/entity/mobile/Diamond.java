@@ -12,6 +12,7 @@ public class Diamond extends Mobile {
 
     /**
      * Instantiates a new Diamond.
+     * @param map the map
      */
     public Diamond(final IMap map) {
         super(SPRITE, map, Permeability.REMOVEABLE);

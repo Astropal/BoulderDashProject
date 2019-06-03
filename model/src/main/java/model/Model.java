@@ -24,6 +24,8 @@ public final class Model extends Observable implements IModel {
 
 	/**
 	 * Instantiates a new model.
+	 * @param fileName the fileName
+	 * @throws IOException the IOException
 	 */
 	public Model(final String fileName) throws IOException {
 		
@@ -47,8 +49,8 @@ public final class Model extends Observable implements IModel {
 	/**
      * Sets the road.
      *
-     * @param road
-     *            the road to set
+     * @param map
+     *            the map to set
      */
     private void setMap(final IMap map) {
         this.map = map;
@@ -65,10 +67,10 @@ public final class Model extends Observable implements IModel {
     }
 
     /**
-     * Sets the my vehicle.
+     * Sets the player.
      *
-     * @param myVehicle
-     *            the myVehicle to set
+     * @param player
+     *            the player to set
      */
     private void setPlayer(final IMobile player) {
         this.player = player;
