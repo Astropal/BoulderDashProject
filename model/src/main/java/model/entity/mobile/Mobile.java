@@ -10,7 +10,11 @@ import contract.model.Permeability;
 import contract.model.Sprite;
 import fr.exia.showboard.IBoard;
 import model.entity.motionless.MotionlessElementsFactory;
-
+/**
+ * The Abstract Class Mobile.
+ *
+ * @author Bastien Dupont based on work of Jean-Aymeric Diet
+ */
 public abstract class Mobile extends Element implements IMobile {
 	
     /** The alive. */
@@ -19,15 +23,15 @@ public abstract class Mobile extends Element implements IMobile {
     private IMap   map;
     /** The board. */
     private IBoard  board;
-    
+    /** The Direction. */
     private int Dir;
-    
+    /** The Objective. */
     int objective = 12;
-    
+    /** The Score. */
     int objectiveState = 0;
-    
+    /** The Finish. */
     boolean finish = false;
-    
+    /** In game state. */
     boolean ingame = true;
     
 
@@ -83,7 +87,7 @@ public abstract class Mobile extends Element implements IMobile {
 
     /*
      * (non-Javadoc)
-     * @see fr.exia.insanevehicles.model.element.mobile.IMobile#moveLeft()
+     * @see model.entity.mobile.IMobile#moveLeft()
      */
     @Override
     public void moveLeft() {
@@ -97,7 +101,7 @@ public abstract class Mobile extends Element implements IMobile {
 
     /*
      * (non-Javadoc)
-     * @see fr.exia.insanevehicles.model.element.mobile.IMobile#moveDown()
+     * @see model.entity.mobile.IMobile#moveDown()
      */
     @Override
     public void moveDown() {
@@ -111,7 +115,7 @@ public abstract class Mobile extends Element implements IMobile {
 
     /*
      * (non-Javadoc)
-     * @see fr.exia.insanevehicles.model.element.mobile.IMobile#moveRight()
+     * @see model.entity.mobile.IMobile#moveRight()
      */
     @Override
     public void moveRight() {
@@ -125,7 +129,7 @@ public abstract class Mobile extends Element implements IMobile {
 
     /*
      * (non-Javadoc)
-     * @see fr.exia.insanevehicles.model.element.mobile.IMobile#doNothing()
+     * @see model.entity.mobile.IMobile#doNothing()
      */
     @Override
     public void doNothing() {
@@ -146,13 +150,7 @@ public abstract class Mobile extends Element implements IMobile {
 
     /*
      * (non-Javadoc)
-     * @see fr.exia.insanevehicles.model.element.mobile.IMobile#getX()
-     */
-
-
-    /*
-     * (non-Javadoc)
-     * @see fr.exia.insanevehicles.model.element.mobile.IMobile#isAlive()
+     * @see model.entity.mobile.IMobile#isAlive()
      */
     @Override
     public Boolean isAlive() {
@@ -167,6 +165,9 @@ public abstract class Mobile extends Element implements IMobile {
         this.setHasMoved();
     }
     
+    /**
+     * Block
+     */
     public void blocked() {
     	if(Dir == 4) { this.setX(this.getX() + 1);}
     	else if (Dir == 3) { this.setX(this.getX() - 1);}
@@ -175,6 +176,11 @@ public abstract class Mobile extends Element implements IMobile {
         this.setHasMoved();
     }
     
+    /**
+     * Dig DustWall.
+     * @param x
+     * @param y
+     */
     public void fillEmptySpace(int x, int y) {
 		IElement bg = MotionlessElementsFactory.createGround();
 		bg.setX(x);
@@ -182,6 +188,12 @@ public abstract class Mobile extends Element implements IMobile {
 		this.getMap().setOnTheMapXY(bg, x, y);
 	}
     
+    
+    /**
+     * Push rocks.
+     * @param x
+     * @param y
+     */
     public void push(int x, int y) {
     	IElement bg = MobileElementsFactory.createRock();
     	bg.setX(x);
@@ -203,6 +215,9 @@ public abstract class Mobile extends Element implements IMobile {
 			this.getMap().setOnTheMapXY(MotionlessElementsFactory.createWall(), this.getX(), this.getY());}
     }
     
+    /**
+     * Fall Injure.
+     */
     public void fallInjure() {
     	if(this.getMap().getOnTheMapXY(this.getX(), this.getY() - 2).getPermeability() == Permeability.PUSHABLE) {
     		this.getMap().setOnTheMapXY(MotionlessElementsFactory.createGround(), this.getX(), this.getY() - 1);
@@ -218,64 +233,65 @@ public abstract class Mobile extends Element implements IMobile {
 
     /*
      * (non-Javadoc)
-     * @see fr.exia.insanevehicles.model.element.mobile.IMobile#isBlocked()
+     * @see model.entity.mobile.IMobile#isBlocked()
      */
     @Override
-    public Boolean isBlocked() {
-        return this.getMap().getOnTheMapXY(this.getX(), this.getY()).getPermeability() == Permeability.BLOCKING;
-    }
-    
+    public Boolean isBlocked() {return this.getMap().getOnTheMapXY(this.getX(), this.getY()).getPermeability() == Permeability.BLOCKING;}
+    /*
+     * (non-Javadoc)
+     * @see model.entity.mobile.IMobile#isOut()
+     */
     @Override
-    public Boolean isOut() {
-        return this.getMap().getOnTheMapXY(this.getX(), this.getY()).getPermeability() == Permeability.FINISHABLE;
-    }
-    
+    public Boolean isOut() {return this.getMap().getOnTheMapXY(this.getX(), this.getY()).getPermeability() == Permeability.FINISHABLE;}
+    /*
+     * (non-Javadoc)
+     * @see model.entity.mobile.IMobile#isFallInjure()
+     */
     @Override
-    public Boolean isFallInjure() {
-    	return (this.getMap().getOnTheMapXY(this.getX(), this.getY() - 2).getPermeability() == Permeability.PUSHABLE || this.getMap().getOnTheMapXY(this.getX(), this.getY() - 2).getPermeability() == Permeability.REMOVEABLE) && this.getMap().getOnTheMapXY(this.getX(), this.getY() - 1).getPermeability() == Permeability.PENETRABLE;
-    }
-    
+    public Boolean isFallInjure() {return (this.getMap().getOnTheMapXY(this.getX(), this.getY() - 2).getPermeability() == Permeability.PUSHABLE || this.getMap().getOnTheMapXY(this.getX(), this.getY() - 2).getPermeability() == Permeability.REMOVEABLE) && this.getMap().getOnTheMapXY(this.getX(), this.getY() - 1).getPermeability() == Permeability.PENETRABLE;}
+    /*
+     * (non-Javadoc)
+     * @see model.entity.mobile.IMobile#isDead()
+     */
     @Override
-    public Boolean isDead() {
-        return (this.getMap().getOnTheMapXY(this.getX(), this.getY()).getPermeability() == Permeability.KILLABLE || this.getMap().getOnTheMapXY(this.getX(), this.getY()).getPermeability() == Permeability.KILLABLE2);
-    }
-    
+    public Boolean isDead() {return (this.getMap().getOnTheMapXY(this.getX(), this.getY()).getPermeability() == Permeability.KILLABLE || this.getMap().getOnTheMapXY(this.getX(), this.getY()).getPermeability() == Permeability.KILLABLE2);}
+    /*
+     * (non-Javadoc)
+     * @see model.entity.mobile.IMobile#isPushable()
+     */
     @Override
-    public Boolean isPushable() {
-        return this.getMap().getOnTheMapXY(this.getX(), this.getY()).getPermeability() == Permeability.PUSHABLE;
-    }
-    
+    public Boolean isPushable() {return this.getMap().getOnTheMapXY(this.getX(), this.getY()).getPermeability() == Permeability.PUSHABLE;}
+    /*
+     * (non-Javadoc)
+     * @see model.entity.mobile.IMobile#isDestructible()
+     */
     @Override
-    public Boolean isDestructible(){
-		return this.getMap().getOnTheMapXY(this.getX(), this.getY()).getPermeability() == Permeability.DESTRUCTIBLE;
-    	
-    }
-    
+    public Boolean isDestructible(){return this.getMap().getOnTheMapXY(this.getX(), this.getY()).getPermeability() == Permeability.DESTRUCTIBLE;}
+    /*
+     * (non-Javadoc)
+     * @see model.entity.mobile.IMobile#isRemoveable()
+     */
     @Override
-    public Boolean isRemoveable(){
-		return this.getMap().getOnTheMapXY(this.getX(), this.getY()).getPermeability() == Permeability.REMOVEABLE;
-    	
-    }
+    public Boolean isRemoveable(){return this.getMap().getOnTheMapXY(this.getX(), this.getY()).getPermeability() == Permeability.REMOVEABLE;}
 
     /**
-     * Gets the road.
+     * Gets the map.
      *
-     * @return the road
+     * @return the map
      */
     public IMap getMap() {
         return this.map;
     }
 
     /**
-     * Sets the road.
+     * Sets the map.
      *
-     * @param road
-     *            the new road
+     * @param map
+     *            the new map
      */
     private void setMap(final IMap map) {
         this.map = map;
     }
-   
 
     /**
      * Gets the board.
@@ -286,6 +302,10 @@ public abstract class Mobile extends Element implements IMobile {
         return this.board;
     }
     
+    /**
+     * The objective
+     *@param objectiveState
+     */
     public void Objective(int objectiveState){
         this.objectiveState = objectiveState;
         this.getMap().setOnTheMapXY(MotionlessElementsFactory.createGround(), this.getX(), this.getY());
@@ -298,14 +318,23 @@ public abstract class Mobile extends Element implements IMobile {
         	}
         }
         
+    /**
+     * Get the score.
+     */
     public int getScore() {
     		return objectiveState;
     }
         
+    /**
+     * The finish state.
+     */
     public boolean isFinish() {
         	return finish;
     }
     
+    /**
+     * In game state.
+     */
     public boolean isInGame() {
     	return ingame;
 }

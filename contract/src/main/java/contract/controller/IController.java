@@ -3,7 +3,7 @@ package contract.controller;
 /**
  * The Interface IController.
  *
- * @author Jean-Aymeric Diet
+ * @author Bastien Dupont based on work of Jean-Aymeric Diet
  */
 public interface IController {
 	
@@ -15,6 +15,10 @@ public interface IController {
      */
     void play() throws InterruptedException;
 	
+	/**
+	 * Get Order Peformer.
+	 * @return OrderPeformer
+	 */
 	IOrderPerformer getOrderPeformer();
 	
 

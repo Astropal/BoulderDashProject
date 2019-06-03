@@ -29,14 +29,14 @@ public class Enemy extends Mobile {
     private static Sprite spriteEnemy;
 
     /**
-     * Instantiates a new my vehicle.
+     * Instantiates a new enemy.
      *
      * @param x
      *            the x
      * @param y
      *            the y
-     * @param road
-     *            the road
+     * @param map
+     *            the map
      * @throws IOException
      *             Signals that an I/O exception has occurred.
      */
@@ -57,6 +57,10 @@ public class Enemy extends Mobile {
         
     }
     
+    /**
+     * Select a sprite randomly
+     * @return the enemy sprite
+     */
     public static Sprite spriteSelect() {
     	int Dir = (int)(Math.random() * 2);
     	if(Dir == 0) {spriteEnemy = spriteTurnDown;}

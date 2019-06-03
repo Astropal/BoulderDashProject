@@ -13,14 +13,14 @@ public class Enemy2 extends Mobile {
     
 
     /**
-     * Instantiates a new my vehicle.
+     * Instantiates a new enemy2.
      *
      * @param x
      *            the x
      * @param y
      *            the y
-     * @param road
-     *            the road
+     * @param map
+     *            the map
      * @throws IOException
      *             Signals that an I/O exception has occurred.
      */

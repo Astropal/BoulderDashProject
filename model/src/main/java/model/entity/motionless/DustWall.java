@@ -12,7 +12,7 @@ public class DustWall extends MotionlessElement {
 
     /**
      * @param iMap 
-     * Instantiates a new tree.
+     * Instantiates a new DustWall.
      * @throws  
      */
     public DustWall() {

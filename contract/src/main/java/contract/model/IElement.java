@@ -1,6 +1,5 @@
 package contract.model;
 
-import java.awt.Image;
 import java.awt.Point;
 
 import fr.exia.showboard.ISquare;
@@ -21,24 +20,40 @@ public interface IElement extends ISquare {
      */
     Permeability getPermeability();
 
-    /*
-     * (non-Javadoc)
-     * @see fr.exia.showboard.ISquare#getImage()
+    /**
+     * Gets the y.
+     *
+     * @return the Y
      */
-    @Override
-    Image getImage();
-
 	int getY();
 
+	/**
+     * Gets the x.
+     *
+     * @return the x
+     */
 	int getX();
 	
+	/*
+     * (non-Javadoc)
+     * @see fr.exia.showboard.IPawn#getPosition()
+     */
 	Point getPosition();
 	
+	/**
+     * Set the y.
+     *
+     * @return the y
+     */
 	public void setY(final int y);
 	
+	/**
+     * Set the x.
+     *
+     * @return the x
+     */
 	public void setX(final int x);
 	
-	public void setSprite(final Sprite sprite);
 
 
 }

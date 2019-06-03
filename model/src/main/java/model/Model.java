@@ -5,26 +5,21 @@ import java.util.Observable;
 
 import contract.model.IMobile;
 import contract.model.IModel;
-import contract.model.IMotionless;
 import contract.model.IMap;
 import model.entity.mobile.Player;
 
 /**
  * The Class Model.
  *
- * @author Jean-Aymeric Diet
+ * @author Bastien Dupont based on work of Jean-Aymeric Diet
  */
 public final class Model extends Observable implements IModel {
 	
-	/** The road. */
+	/** The map. */
     private IMap   map;
 
-    /** The my vehicle. */
+    /** The Player. */
     private IMobile player;
-    
-    
-    private IMotionless element;
-    
     
 
 	/**
@@ -38,21 +33,12 @@ public final class Model extends Observable implements IModel {
         this.player.setY(5);
        // this.setElement(new DustWall());
 	}
-
-	/**
-     * Gets the hello world.
-     *
-     * @return the hello world
-     */
+	
 	/*
-	 * (non-Javadoc)
-	 *
-	 * @see contract.IModel#getMessage()
-	 *
-	public HelloWorld getHelloWorld() {
-		return this.helloWorld;
-	}
-	*/
+	 * (Non Java-doc)
+	 * 
+	 * Get the map.
+	 */
 	@Override
     public final IMap getMap() {
         return this.map;
@@ -68,6 +54,11 @@ public final class Model extends Observable implements IModel {
         this.map = map;
     }
     
+    /*
+	 * (Non Java-doc)
+	 * 
+	 * Get the player.
+	 */
     @Override
     public final IMobile getPlayer() {
         return this.player;
@@ -82,47 +73,6 @@ public final class Model extends Observable implements IModel {
     private void setPlayer(final IMobile player) {
         this.player = player;
     }
-    
-    @Override
-    public final IMotionless getElement() {
-        return this.element;
-    }
-    
-    public void setElement(final IMotionless element) {
-        this.element = element;
-    }
-
-	/**
-     * Sets the hello world.
-     *
-     * @param helloWorld
-     *            the new hello world
-     *
-	private void setHelloWorld(final HelloWorld helloWorld) {
-		this.helloWorld = helloWorld;
-		this.setChanged();
-		this.notifyObservers();
-	}*/
-
-	/**
-     * Load hello world.
-     *
-     * @param code
-     *            the code
-     */
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see contract.IModel#getMessage(java.lang.String)
-	 *
-	public void loadHelloWorld(final String code) {
-		try {
-			final DAOHelloWorld daoHelloWorld = new DAOHelloWorld(DBConnection.getInstance().getConnection());
-			this.setHelloWorld(daoHelloWorld.find(code));
-		} catch (final SQLException e) {
-			e.printStackTrace();
-		}
-	}*/
 
 	/**
      * Gets the observable.

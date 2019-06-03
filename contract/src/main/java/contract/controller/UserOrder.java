@@ -3,12 +3,14 @@ package contract.controller;
 /**
  * The Enum ControllerOrder.
  *
- * @author Jean-Aymeric Diet
+ * @author Bastien Dupont based on work of Jean-Aymeric Diet
  */
 public enum UserOrder {
 
+	/** The up. */
 	UP,
 	
+	/** The down. */
 	DOWN,
 
     /** The right. */
@@ -17,6 +19,6 @@ public enum UserOrder {
     /** The left. */
     LEFT,
 
-    /** The nop. */
+    /** The Idle (nop). */
     NOP
 }

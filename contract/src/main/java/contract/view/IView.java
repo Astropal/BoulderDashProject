@@ -4,7 +4,7 @@ package contract.view;
 /**
  * The Interface IView.
  *
- * @author Jean-Aymeric Diet
+ * @author Bastien Dupont based on work of Jean-Aymeric Diet
  */
 public interface IView {
 
@@ -17,12 +17,19 @@ public interface IView {
     void displayMessage(String message);
 
     /**
-     * Follow myVehicle.
+     * Follow player.
      */
     void followPlayer();
     
+    /**
+     * Print the game in the console (for dev).
+     * @param yStart
+     */
     void show(final int yStart);
-    
+        
+    /**
+     * Update the display.
+     */
     void UpdateMap();
     
     

@@ -5,13 +5,13 @@ import java.io.IOException;
 import contract.model.Permeability;
 import contract.model.Sprite;
 
-class Door extends MotionlessElement {
+public class Door extends MotionlessElement {
 
     /** The Constant SPRITE. */
     private static final Sprite SPRITE = new Sprite('X', "Door.jpg");
 
     /**
-     * Instantiates a new ditchLeft.
+     * Instantiates a new Door.
      */
     Door() {
         super(SPRITE, Permeability.FINISHABLE);

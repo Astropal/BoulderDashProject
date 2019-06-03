@@ -38,7 +38,7 @@ public abstract class Element implements IElement {
 
     /*
      * (non-Javadoc)
-     * @see fr.exia.insanevehicles.model.element.IElement#getSprite()
+     * @see model.entity.IElement#getSprite()
      */
     @Override
     public final Sprite getSprite() {
@@ -57,7 +57,7 @@ public abstract class Element implements IElement {
 
     /*
      * (non-Javadoc)
-     * @see fr.exia.insanevehicles.model.element.IElement#getPermeability()
+     * @see model.entity.IElement#getPermeability()
      */
     @Override
     public final Permeability getPermeability() {
@@ -80,13 +80,17 @@ public abstract class Element implements IElement {
      */
     /*
      * (non-Javadoc)
-     * @see fr.exia.insanevehicles.model.element.IElement#getImage()
+     * @see model.entity.IElement#getImage()
      */
     @Override
     public final Image getImage() {
         return this.getSprite().getImage();
     }
     
+    /*
+     * (non-Javadoc)
+     * @see model.entity.mobile.IMobile#getX()
+     */
     @Override
     public final int getX() {
         return this.getPosition().x;
@@ -104,7 +108,7 @@ public abstract class Element implements IElement {
 
     /*
      * (non-Javadoc)
-     * @see fr.exia.insanevehicles.model.element.mobile.IMobile#getY()
+     * @see model.entity.mobile.IMobile#getY()
      */
     @Override
     public final int getY() {
@@ -123,6 +127,10 @@ public abstract class Element implements IElement {
         
     }
     
+    /*
+     * (non-Javadoc)
+     * @see model.entity.mobile.IMobile#getPosition()
+     */
     @Override
     public Point getPosition() {
         return this.position;

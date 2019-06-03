@@ -9,7 +9,7 @@ public class Ground extends MotionlessElement {
     private static final Sprite SPRITE = new Sprite(' ', "Ground.jpg");
 
     /**
-     * Instantiates a new macadam.
+     * Instantiates a new Ground.
      */
     public Ground() {
         super(SPRITE, Permeability.PENETRABLE);

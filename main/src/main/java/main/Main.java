@@ -1,6 +1,6 @@
 /**
- * @author Jean-Aymeric DIET jadiet@cesi.fr
- * @version 1.0
+ * @author Bastien Dupont based on work of Jean-Aymeric Diet
+ * @version 2.0
  */
 package main;
 
@@ -13,7 +13,7 @@ import view.View;
 /**
  * The Class Main.
  *
- * @author Jean-Aymeric Diet
+ * @author Bastien Dupont based on work of Jean-Aymeric Diet
  */
 public abstract class Main {
 

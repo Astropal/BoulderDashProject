@@ -21,7 +21,7 @@ public class Map extends Observable implements IMap {
     /** The height. */
     private int          height;
 
-    /** The on the road. */
+    /** The on the map. */
     private IElement[][] onTheMap;
     
     private DAOMap MyMap = new DAOMap() ;
@@ -151,6 +151,10 @@ public class Map extends Observable implements IMap {
         return this;
     }
     
+    
+    /**
+     * The Gravity physics
+     */
     public void gravity() throws InterruptedException {
     	for (int y = this.getHeight()-1;y > 0; y--) {
 			for (int x = this.getWidth()-1; x > 0; x--) {
@@ -181,6 +185,9 @@ public class Map extends Observable implements IMap {
 		}
 	}
     
+    /**
+     * The Enemy movements
+     */
     public void moveEnemy() throws InterruptedException {
     	for (int y = this.getHeight()-1;y > 0; y--) {
 			for (int x = this.getWidth()-1; x > 0; x--) {

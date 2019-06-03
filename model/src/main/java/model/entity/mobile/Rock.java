@@ -11,7 +11,7 @@ public class Rock extends Mobile {
     private static final Sprite SPRITE = new Sprite('N', "Rock.jpg");
 
     /**
-     * Instantiates a new obstacle.
+     * Instantiates a new rock.
      */
     public Rock(final IMap map) {
         super(SPRITE, map, Permeability.PUSHABLE);

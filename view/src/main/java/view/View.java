@@ -22,7 +22,7 @@ import fr.exia.showboard.BoardFrame;
  * @author Jean-Aymeric Diet
  */
 public final class View implements Runnable, KeyListener, IView {
-	/** The Constant roadView. */
+	/** The Constant mapView. */
     private static final int walkView   = 20;
 
     /** The Constant squareSize. */
@@ -34,7 +34,7 @@ public final class View implements Runnable, KeyListener, IView {
     /** The road. */
     private IMap            map;
 
-    /** My vehicle. */
+    /** Player. */
     private IMobile          player;
 
     /** The view. */
@@ -49,10 +49,10 @@ public final class View implements Runnable, KeyListener, IView {
     /**
      * Instantiates a new insane vehicles View.
      *
-     * @param road
-     *            the road
-     * @param myVehicle
-     *            the my vehicle
+     * @param map
+     *            the map
+     * @param player
+     *            the player
      * @throws IOException
      *             Signals that an I/O exception has occurred.
      */
@@ -67,7 +67,7 @@ public final class View implements Runnable, KeyListener, IView {
 
     /*
      * (non-Javadoc)
-     * @see fr.exia.insanevehicles.view.IInsaneVehiclesView#displayMessage(java.lang.String)
+     * @see view.View#displayMessage(java.lang.String)
      */
     @Override
     public final void displayMessage(final String message) {
@@ -103,7 +103,7 @@ public final class View implements Runnable, KeyListener, IView {
     }
 
     /**
-     * Prints the road and the player's vehicle in the console.
+     * Prints the map and the player's in the console.
      *
      * @param yStart
      *            the y start
@@ -185,7 +185,7 @@ public final class View implements Runnable, KeyListener, IView {
 
     /*
      * (non-Javadoc)
-     * @see fr.exia.insanevehicles.view.IInsaneVehiclesView#followMyvehicle()
+     * @see view.View#followMyvehicle()
      */
     @Override
     public final void followPlayer() {
@@ -208,19 +208,19 @@ public final class View implements Runnable, KeyListener, IView {
     }
 
     /**
-     * Gets the road.
+     * Gets the map.
      *
-     * @return the road
+     * @return the map
      */
     private IMap getMap() {
         return this.map;
     }
 
     /**
-     * Sets the road.
+     * Sets the map.
      *
-     * @param road
-     *            the new road
+     * @param map
+     *            the new map
      * @throws IOException
      *             Signals that an I/O exception has occurred.
      */
@@ -234,19 +234,19 @@ public final class View implements Runnable, KeyListener, IView {
     }
 
     /**
-     * Gets my vehicle.
+     * Gets Player.
      *
-     * @return my vehicle
+     * @return Player
      */
     private IMobile getPlayer() {
         return this.player;
     }
 
     /**
-     * Sets my vehicle.
+     * Sets Player.
      *
-     * @param myVehicle
-     *            my new vehicle
+     * @param Player
+     *            new Player
      */
     private void setPlayer(final IMobile player) {
         this.player = player;
@@ -309,6 +309,9 @@ public final class View implements Runnable, KeyListener, IView {
         this.orderPerformer = orderPerformer;
     }
     
+    /**
+     * Update the display.
+     */
     public void UpdateMap() {
     	for (int x = 0; x < this.getMap().getWidth(); x++) {
             for (int y = 0; y < this.getMap().getHeight(); y++) {

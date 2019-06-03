@@ -5,16 +5,14 @@ import model.Map;
 public abstract class MobileElementsFactory {
 	
 	private static Map MAP;
-	
-	//private static final Player          player          = new Player(4, 4, MAP);
 
     /** The Constant ROCK. */
     private static final Rock                rock                = new Rock(MAP);
-    
+    /** The Constant DIAMOND. */
     private static final Diamond                diamond                = new Diamond(MAP);
-    
+    /** The Constant ENEMY. */
     private static final Enemy                enemy                = new Enemy(MAP);
-    
+    /** The Constant ENEMY2. */
     private static final Enemy2                enemy2                = new Enemy2(MAP);
 
 
@@ -22,16 +20,11 @@ public abstract class MobileElementsFactory {
      * The motionless elements is an array of all possible MotionlessElement.
      */
     private static Mobile[]       mobileElements  = {
-    //	player,
     	rock,
     	diamond,
     	enemy,
     	enemy2,};
     
-    /*public static Mobile createPlayer() {
-        return player;
-    }*/
-
     /**
      * Creates a new ground object.
      *
@@ -40,19 +33,30 @@ public abstract class MobileElementsFactory {
     public static Mobile createRock() {
         return rock;
     }
-    
+    /**
+     * Creates a new ground object.
+     *
+     * @return the motionless element
+     */
     public static Mobile createDiamond() {
         return diamond;
     }
-    
+    /**
+     * Creates a new ground object.
+     *
+     * @return the motionless element
+     */
     public static Mobile createEnemy() {
         return enemy;
     }
-    
+    /**
+     * Creates a new ground object.
+     *
+     * @return the motionless element
+     */
     public static Mobile createEnemy2() {
         return enemy2;
     }
-
 
     /**
      * Gets the good MotionlessElement from file symbol.

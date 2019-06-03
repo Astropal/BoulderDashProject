@@ -27,14 +27,14 @@ public class Player extends Mobile {
     private static final Sprite spriteDead   = new Sprite('H', "Dead.jpg");
 
     /**
-     * Instantiates a new my vehicle.
+     * Instantiates a new player.
      *
      * @param x
      *            the x
      * @param y
      *            the y
-     * @param road
-     *            the road
+     * @param map
+     *            the map
      * @throws IOException
      *             Signals that an I/O exception has occurred.
      */
@@ -49,19 +49,25 @@ public class Player extends Mobile {
 			spriteDead.loadImage();
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         
     }
     
-    
+    /*
+     * (non-Javadoc)
+     * @see model.entity.mobile.Mobile#moveUp()
+     */
     @Override
     public final void moveUp() {
         super.moveUp();
         this.setSprite(spriteTurnUp);
     }
     
+    /*
+     * (non-Javadoc)
+     * @see model.entity.mobile.Mobile#moveDown()
+     */
     @Override
     public final void moveDown() {
         super.moveDown();
@@ -70,7 +76,7 @@ public class Player extends Mobile {
     
     /*
      * (non-Javadoc)
-     * @see fr.exia.insanevehicles.model.element.mobile.Mobile#moveLeft()
+     * @see model.entity.mobile.Mobile#moveLeft()
      */
     @Override
     public final void moveLeft() {
@@ -80,7 +86,7 @@ public class Player extends Mobile {
 
     /*
      * (non-Javadoc)
-     * @see fr.exia.insanevehicles.model.element.mobile.Mobile#moveRight()
+     * @see model.entity.mobile.Mobile#moveRight()
      */
     @Override
     public final void moveRight() {
@@ -90,7 +96,7 @@ public class Player extends Mobile {
 
     /*
      * (non-Javadoc)
-     * @see fr.exia.insanevehicles.model.element.mobile.Mobile#die()
+     * @see model.entity.mobile.Mobile#die()
      */
     @Override
     protected final void die() {
@@ -100,7 +106,7 @@ public class Player extends Mobile {
 
     /*
      * (non-Javadoc)
-     * @see fr.exia.insanevehicles.model.element.mobile.Mobile#doNothing()
+     * @see model.entity.mobile.Mobile#doNothing()
      */
     @Override
     public final void doNothing() {

@@ -23,7 +23,6 @@ public class Controller implements IController, IOrderPerformer {
 	/** The model. */
 	private IModel	model;
 	
-	
 	/** The stack order. */
     private UserOrder            stackOrder;
 
@@ -54,8 +53,7 @@ public class Controller implements IController, IOrderPerformer {
 	 */
 	public final void play() throws InterruptedException {
 		while (this.getModel().getPlayer().isAlive() && this.getModel().getPlayer().isInGame()) {
-			//getView().UpdateMap();
-			//this.getView().show(0);
+			//this.getView().show(0); (print the game in the console).
 			Thread.sleep(speed);
             switch (this.getStackOrder()) {
                 case RIGHT:
@@ -99,7 +97,7 @@ public class Controller implements IController, IOrderPerformer {
         	if(this.getModel().getPlayer().isFinish()) {
         		this.getView().displayMessage("A DOOR HAS OPENED !");
         	}
-        	//System.out.println(this.getModel().getPlayer().getScore());
+        	//System.out.println(this.getModel().getPlayer().getScore()); (Print the score in the console).
         }
         
         this.getModel().getMap().gravity();
@@ -114,12 +112,24 @@ public class Controller implements IController, IOrderPerformer {
 	
 	
 	
+	/**
+     * Order perform.
+     *
+     * @param userOrder
+     *            the user order
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
 	@Override
     public final void orderPerform(final UserOrder userOrder) throws IOException {
         this.setStackOrder(userOrder);
     }
 	
 	
+	/**
+	 * Get the view.
+	 * @return the view
+	 */
 	private IView getView() {
         return this.view;
     }
@@ -181,9 +191,7 @@ public class Controller implements IController, IOrderPerformer {
         this.stackOrder = UserOrder.NOP;
     }
 
-    /**
-     * Control.
-     */
+
 	/*
 	 * (non-Javadoc)
 	 *

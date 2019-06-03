@@ -7,7 +7,7 @@ import entity.HelloWorld;
 /**
  * The Interface IModel.
  *
- * @author Jean-Aymeric Diet
+ * @author Bastien Dupont based on work of Jean-Aymeric Diet
  */
 public interface IModel {
 
@@ -33,23 +33,19 @@ public interface IModel {
 	 */
 	Observable getObservable();
 
-	
 	/**
-     * Gets the ground.
+     * Gets the map.
      *
-     * @return the ground
+     * @return the map
      */
 	IMap getMap();
 	
 	/**
-     * Gets the my vehicle.
+     * Gets the player.
      *
-     * @return the myVehicle
+     * @return the player
      */
     IMobile getPlayer();
 
-	IMotionless getElement();
-
-	void setElement(final IMotionless element);
 
 }

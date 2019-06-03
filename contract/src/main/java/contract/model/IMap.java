@@ -32,6 +32,12 @@ public interface IMap {
      */
     IElement getOnTheMapXY(int x, int y);
     
+    /**
+     * Set on the map.
+     * @param element
+     * @param x
+     * @param y
+     */
     public void setOnTheMapXY(final IElement element, final int x, final int y);
 
     /**
@@ -46,8 +52,18 @@ public interface IMap {
      */
     Observable getObservable();
 	
+    
+	/**
+	 * Apply the gravity.
+	 * @throws InterruptedException
+	 */
 	void gravity() throws InterruptedException;
 	
+	
+	/**
+	 * Enemies movements.
+	 * @throws InterruptedException
+	 */
 	void moveEnemy() throws InterruptedException;
     
 
