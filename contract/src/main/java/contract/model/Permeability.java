@@ -15,5 +15,7 @@ public enum Permeability {
     
     KILLABLE,
     
-    FINISHABLE;
+    FINISHABLE,
+    
+    KILLABLE2;
 }

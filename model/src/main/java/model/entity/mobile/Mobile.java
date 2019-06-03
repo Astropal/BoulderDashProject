@@ -77,7 +77,7 @@ public abstract class Mobile extends Element implements IMobile {
         this.setY(this.getY() - 1);
         Dir = 1;
         if (this.isDead()) { this.die(); }
-        if(this.isOut()) {ingame = false; System.out.println(ingame);}
+        if(this.isOut()) {ingame = false;}
         this.setHasMoved();
     }
 
@@ -91,7 +91,7 @@ public abstract class Mobile extends Element implements IMobile {
         this.setX(this.getX() - 1);
         Dir = 4;
         if (this.isDead()) { this.die(); }
-        if(this.isOut()) {ingame = false; System.out.println(ingame);}
+        if(this.isOut()) {ingame = false;}
         this.setHasMoved();
     }
 
@@ -105,7 +105,7 @@ public abstract class Mobile extends Element implements IMobile {
         this.setY(this.getY() + 1);
         Dir = 2;
         if (this.isDead()) { this.die(); }
-        if(this.isOut()) {ingame = false; System.out.println(ingame);}
+        if(this.isOut()) {ingame = false;}
         this.setHasMoved();
     }
 
@@ -119,7 +119,7 @@ public abstract class Mobile extends Element implements IMobile {
         this.setX(this.getX() + 1);
         Dir = 3;
         if (this.isDead()) { this.die(); }
-        if(this.isOut()) {ingame = false; System.out.println(ingame);}
+        if(this.isOut()) {ingame = false;}
         this.setHasMoved();
     }
 
@@ -237,7 +237,7 @@ public abstract class Mobile extends Element implements IMobile {
     
     @Override
     public Boolean isDead() {
-        return this.getMap().getOnTheMapXY(this.getX(), this.getY()).getPermeability() == Permeability.KILLABLE;
+        return (this.getMap().getOnTheMapXY(this.getX(), this.getY()).getPermeability() == Permeability.KILLABLE || this.getMap().getOnTheMapXY(this.getX(), this.getY()).getPermeability() == Permeability.KILLABLE2);
     }
     
     @Override

@@ -60,7 +60,7 @@ public class Map extends Observable implements IMap {
         line = buffer.readLine();
         while (line != null) {
             for (int x = 0; x < line.toCharArray().length; x++) {
-				if (((line.toCharArray()[x]) == 'D') || ((line.toCharArray()[x]) == 'N') || ((line.toCharArray()[x]) == 'E')) {
+				if (((line.toCharArray()[x]) == 'D') || ((line.toCharArray()[x]) == 'N') || ((line.toCharArray()[x]) == 'E') || ((line.toCharArray()[x]) == 'P')) {
                 this.setOnTheMapXY(MobileElementsFactory.getFromFileSymbol(line.toCharArray()[x]), x, y);
             	}else {this.setOnTheMapXY(MotionlessElementsFactory.getFromFileSymbol(line.toCharArray()[x]), x, y);}
              }
@@ -163,7 +163,7 @@ public class Map extends Observable implements IMap {
 					this.setOnTheMapXY(MobileElementsFactory.createDiamond(), x, y+1);
 				}
 				
-				if(this.getOnTheMapXY(x, y).getPermeability() == Permeability.PUSHABLE && this.getOnTheMapXY(x, y + 1).getPermeability() == Permeability.PENETRABLE && this.getOnTheMapXY(x - 1, y).getPermeability() == Permeability.PENETRABLE && (this.getOnTheMapXY(x, y + 1).getPermeability() == Permeability.PUSHABLE || this.getOnTheMapXY(x, y + 1).getPermeability() == Permeability.REMOVEABLE)){
+				if(this.getOnTheMapXY(x, y).getPermeability() == Permeability.PUSHABLE && this.getOnTheMapXY(x - 1, y + 1).getPermeability() == Permeability.PENETRABLE && this.getOnTheMapXY(x - 1, y).getPermeability() == Permeability.PENETRABLE && (this.getOnTheMapXY(x, y + 1).getPermeability() == Permeability.PUSHABLE || this.getOnTheMapXY(x, y + 1).getPermeability() == Permeability.REMOVEABLE)){
 					this.setOnTheMapXY(MotionlessElementsFactory.createGround(), x, y);
 					this.setOnTheMapXY(MobileElementsFactory.createRock(), x - 1, y);
 				}else if(this.getOnTheMapXY(x, y).getPermeability() == Permeability.PUSHABLE && this.getOnTheMapXY(x + 1, y + 1).getPermeability() == Permeability.PENETRABLE && this.getOnTheMapXY(x + 1, y).getPermeability() == Permeability.PENETRABLE && (this.getOnTheMapXY(x, y + 1).getPermeability() == Permeability.PUSHABLE || this.getOnTheMapXY(x, y + 1).getPermeability() == Permeability.REMOVEABLE)) {
@@ -186,7 +186,7 @@ public class Map extends Observable implements IMap {
 			for (int x = this.getWidth()-1; x > 0; x--) {
 				int Dir = (int)(Math.random() * 4);
 				
-				if(this.getOnTheMapXY(x, y).getPermeability() == Permeability.KILLABLE && (this.getOnTheMapXY(x, y - 1).getPermeability() == Permeability.PUSHABLE || this.getOnTheMapXY(x, y - 1).getPermeability() == Permeability.REMOVEABLE)){
+				if((this.getOnTheMapXY(x, y).getPermeability() == Permeability.KILLABLE || this.getOnTheMapXY(x, y).getPermeability() == Permeability.KILLABLE2) && (this.getOnTheMapXY(x, y - 1).getPermeability() == Permeability.PUSHABLE || this.getOnTheMapXY(x, y - 1).getPermeability() == Permeability.REMOVEABLE)){
 					this.setOnTheMapXY(MobileElementsFactory.createDiamond(), x, y);
 					this.setOnTheMapXY(MobileElementsFactory.createDiamond(), x + 1, y);
 					this.setOnTheMapXY(MobileElementsFactory.createDiamond(), x - 1, y);
@@ -213,6 +213,15 @@ public class Map extends Observable implements IMap {
 				if(Dir == 3 && this.getOnTheMapXY(x, y).getPermeability() == Permeability.KILLABLE && this.getOnTheMapXY(x - 1, y).getPermeability() == Permeability.PENETRABLE){
 					this.setOnTheMapXY(MotionlessElementsFactory.createGround(), x, y);
 					this.setOnTheMapXY(MobileElementsFactory.createEnemy(), x-1, y);
+				}
+				
+				if((Dir == 0 || Dir == 1) && this.getOnTheMapXY(x, y).getPermeability() == Permeability.KILLABLE2 && this.getOnTheMapXY(x + 1, y).getPermeability() == Permeability.PENETRABLE){
+					this.setOnTheMapXY(MotionlessElementsFactory.createGround(), x, y);
+					this.setOnTheMapXY(MobileElementsFactory.createEnemy2(), x+1, y);
+				}
+				if((Dir == 2 || Dir == 3) && this.getOnTheMapXY(x, y).getPermeability() == Permeability.KILLABLE2 && this.getOnTheMapXY(x - 1, y).getPermeability() == Permeability.PENETRABLE){
+					this.setOnTheMapXY(MotionlessElementsFactory.createGround(), x, y);
+					this.setOnTheMapXY(MobileElementsFactory.createEnemy2(), x-1, y);
 				}
 			}
 		}
