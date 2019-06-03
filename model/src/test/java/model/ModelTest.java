@@ -4,6 +4,8 @@
  */
 package model;
 
+import java.io.IOException;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Assert;
@@ -11,8 +13,15 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+
+import contract.model.IMap;
+import contract.model.IMobile;
+
+
+
 public class ModelTest {
-    private Model model;
+	
+	Model model;
 
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
@@ -31,23 +40,23 @@ public class ModelTest {
     public void tearDown() throws Exception {
     }
 
-    @Test
-    public void testGetMessage() {
-        Assert.assertEquals("", this.model.getHelloWorld().getMessage());
-    }
 
     /**
-     * Test method for {@link model.Model#loadHelloWorld(java.lang.String)}.
+     * @throws IOException 
      */
     @Test
-    public void testGetMessageString() {
-        this.model.loadHelloWorld("GB");
-        Assert.assertEquals("Hello world", this.model.getHelloWorld().getMessage());
-        this.model.loadHelloWorld("FR");
-        Assert.assertEquals("Bonjour le monde", this.model.getHelloWorld().getMessage());
-        this.model.loadHelloWorld("DE");
-        Assert.assertEquals("Hallo Welt", this.model.getHelloWorld().getMessage());
-        this.model.loadHelloWorld("ID");
-        Assert.assertEquals("Salamat pagi dunia", this.model.getHelloWorld().getMessage());
+    public void testGetMap() throws IOException {
+    	
+    	IMap map = new Map("Road.txt");
+    	Assert.assertSame(map, this.model.getMap());
     }
+    
+    @Test
+    public void testGetPlayer() {
+    	
+    	IMobile player = null;
+    	Assert.assertSame(player, this.model.getPlayer());
+    }
+    
+   
 }
