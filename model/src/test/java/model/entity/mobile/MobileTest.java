@@ -11,12 +11,12 @@ import org.junit.Test;
 import contract.model.IMap;
 import contract.model.Permeability;
 import contract.model.Sprite;
+import junit.framework.Assert;
 import model.Map;
 
 public class MobileTest {
 
 	private Mobile mobile;
-	private Sprite sprite = new Sprite('x', "Idle.png");
 	private IMap map;
 
 	@BeforeClass
@@ -30,7 +30,8 @@ public class MobileTest {
 	@Before
 	public void setUp() throws Exception {
 
-		//this.mobile = new Mobile(1, 1, sprite, map, Permeability.BLOCKING);
+		this.mobile = new Player(map);
+
 	}
 
 	@After
@@ -49,8 +50,9 @@ public class MobileTest {
 
 	@Test
 	public void testMoveUp() {
-		// assertSame("Same postion", this.testGetPosition(), mobile.getPostion());
-		assertEquals(1, 1);
+
+		// assertSame(this.mobile, new Rock(map));
+		fail("Not yet implemented");
 
 	}
 
@@ -58,6 +60,8 @@ public class MobileTest {
 	public void testDestruction() {
 		// Player player = new Player(1,1, null);
 		// assertNotSame(this.testGetPermeability(), )
+		fail("Not yet implemented");
+
 	}
 
 	@Test
